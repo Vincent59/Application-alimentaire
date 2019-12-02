@@ -8,12 +8,24 @@ const routes: Routes = [
     pathMatch: 'full' 
   },
   {
-    path: 'recettes',
-    loadChildren: () => import('./pages/recettes/recettes.module').then( m => m.RecettesPageModule)
+    path: '',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'recettes/:id',
-    loadChildren: () => import('./pages/recette/recette.module').then( m => m.RecettePageModule)
+    path: 'create-receipe',
+    loadChildren: () => import('./create-receipe/create-receipe.module').then( m => m.CreateReceipePageModule)
+  },
+  {
+    path: 'items-list',
+    loadChildren: () => import('./items-list/items-list.module').then( m => m.ItemsListPageModule)
+  },
+  {
+    path: 'receipe-list',
+    loadChildren: () => import('./receipe-list/receipe-list.module').then( m => m.ReceipeListPageModule)
+  },
+  {
+    path: 'search-part',
+    loadChildren: () => import('./search-part/search-part.module').then( m => m.SearchPartPageModule)
   }
 
 ];
