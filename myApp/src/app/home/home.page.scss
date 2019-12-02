@@ -1,0 +1,31 @@
+.md {
+    background: url("/assets/background.jpg");
+}
+
+.btnNav {
+    transform: translateY(145px);
+    text-align: center;
+}
+
+.btnCreate, .btnChose, .btnSee {
+    font-size: 18px;   
+    width: 300px;
+    height: 60px; 
+    margin-bottom: 90px;
+}
+
+ion-header {
+    text-align: center;
+}
+
+ion-header::after {
+    background-image: none;
+}
+
+.footerLeft {
+    float: left;
+}
+
+.footerRight {
+    float: right;
+}
