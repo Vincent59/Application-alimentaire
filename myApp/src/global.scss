@@ -13,6 +13,19 @@
     --border-radius: 100px;
     --padding: 35px 35px 35px 35px!important;
     --width: 300px!important;
+
+    .button-inner {
+        --background-color: transparent;
+        --color: black;
+        --box-shadow: 1px 1px 9px -3px black;
+    }
+}
+
+
+
+ion-icon {
+    color: black;
+    font-size: 35px;
 }
 
 /* Core CSS required for Ionic components to work properly */
