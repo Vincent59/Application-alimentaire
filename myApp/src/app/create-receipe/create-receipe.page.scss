@@ -14,18 +14,35 @@
     }
 }
 
-.btnAdd {
-    --background: #73e8ae;
-    color: #ffffff;
-    width: 300px;
-    height: 60px;
-    margin: 20px auto 5px auto;
-    font-size: 15px;
-    font-weight: bold;
-}
-
 .addBloc {
     text-align: center;
     font-size: 14px;
     margin-top: 0;
+
+    .button {
+        margin: 20px auto 5px auto;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .btnAdd {
+        --background: #ff627e;
+        color: #ffffff;
+        width: 300px;
+        height: 60px;
+    }
+
+    .btnSave {
+        --background: #a2a4ab;
+        color: #ffffff;
+        width: 250px;
+        height: 40px;
+    }
+
+    .btnExport {
+        --background: #6ac17d;
+        color: #ffffff;
+        width: 250px;
+        height: 40px;
+    }
 }
