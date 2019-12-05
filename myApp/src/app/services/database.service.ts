@@ -32,8 +32,12 @@ export class DatabaseService {
       .then((db: SQLiteObject) => {
           this.database = db;
           this.seedDatabase();
-      });
-    });
+          /* db.executeSql('CREATE TABLE IF NOT EXISTS `recette` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `nom` varchar(255) NOT NULL, `nb_pers` REAL NOT NULL, `source` varchar(255) NOT NULL, `page` varchar(255) DEFAULT NULL ); INSERT or IGNORE INTO `recette` VALUES (1, Riz épicé au poulet,2,Cuisine des étudiants,80),(2,`Pizza pattates chorizo`,4,`Cuisine des étudiants`,`82`),(3,Sauté de poulet au sésame,2,Cuisine des étudiants,90);')
+          .then(() => console.log('Executed SQL'))
+          .catch(e => console.log(e)); */
+        })
+        .catch(e => console.log(e));;
+    })
   }
 
   seedDatabase() {
@@ -78,7 +82,8 @@ export class DatabaseService {
   }
  
   addRecette(nom, nbPers, source, page) {
-    return this.database.executeSql('INSERT INTO recette (nom, nbPers, source, page) VALUES (?, ?, ?, ?)').then(data => {
+    let data = [nom, nbPers, source, page];
+    return this.database.executeSql('INSERT INTO recette (nom, nb_pers, source, page) VALUES (?, ?, ?, ?)', data).then(data => {
       this.loadRecettes();
     });
   }

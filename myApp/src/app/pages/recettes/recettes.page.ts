@@ -1,6 +1,6 @@
-import { DatabaseService, Recette } from './../../services/database.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DatabaseService, Recette } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-recettes',

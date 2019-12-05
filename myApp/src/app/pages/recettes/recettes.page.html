@@ -15,19 +15,19 @@
   <div [ngSwitch]="selectedView">
     <div *ngSwitchCase="'recettes'">
       <ion-item>
-        <ion-label position="stacked">Nom de la recette ?</ion-label>
+        <ion-label position="stacked">Quelle est la recette ?</ion-label>
         <ion-input [(ngModel)]="recette.nom" placeholder="Nom Recette"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Pour combien de personnes ?</ion-label>
-        <ion-input [(ngModel)]="recette.nbPers" placeholder="Nombre personnes"></ion-input>
+        <ion-input [(ngModel)]="recette.nbPers" placeholder="Nb personnes"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Source</ion-label>
+        <ion-label position="stacked">Quelle est la source ?</ion-label>
         <ion-input [(ngModel)]="recette.source" placeholder="Source"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked">Page :</ion-label>
+        <ion-label position="stacked">Quelle est la page ?</ion-label>
         <ion-input [(ngModel)]="recette.page" placeholder="Page"></ion-input>
       </ion-item>
       <ion-button expand="block" (click)="addRecette()">Ajouter la recette</ion-button>
@@ -41,7 +41,27 @@
           </ion-label>
         </ion-item>
       </ion-list>
+
+      <ion-list>
+        <ion-item button >
+          <ion-label>
+            <h2>test</h2>
+            <p>Pour 4 personne(s)</p>
+            <p>test, test </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </div>
+
+    <ion-list>
+      <ion-item button >
+        <ion-label>
+          <h2>test 2</h2>
+          <p>Pour 2 personne(s)</p>
+          <p>test 2, test 2</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
  
   </div>
  
