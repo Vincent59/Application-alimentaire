@@ -1,4 +1,4 @@
-
+﻿
 CREATE TABLE IF NOT EXISTS `recette` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT,
   `nom` varchar(255) NOT NULL,
