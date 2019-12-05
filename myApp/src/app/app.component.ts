@@ -21,7 +21,46 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.splashScreen.show();
     });
   }
+
+  public items = [
+    {
+      name: 'Burger',
+      path: ''
+    },
+    {
+      name: 'Tomate',
+      path: ''
+    },
+    {
+      name: 'Salade',
+      path: ''
+    },
+    {
+      name: 'Riz',
+      path: ''
+    },
+    {
+      name: 'Sauce Tomate',
+      path: ''
+    },
+    {
+      name: 'Sauce mayonnaise',
+      path: ''
+    },
+    {
+      name: 'Pomme de terre',
+      path: ''
+    },
+    {
+      name: 'Burger',
+      path: ''
+    },
+    {
+      name: 'Burger',
+      path: ''
+    },
+  ]
 }

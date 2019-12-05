@@ -21,12 +21,13 @@
     }
 }
 
-
-
 ion-icon {
     color: black;
-    font-size: 35px;
+    font-size: 30px;
 }
+
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
 
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";

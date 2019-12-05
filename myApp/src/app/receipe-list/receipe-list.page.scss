@@ -12,6 +12,7 @@
         font-size: 34px;
         font-weight: bolder;
         text-shadow: 4px 3px 0px #2b2b2b;
+        font-family: "Zilla Slab Highlight", cursive;
     }
 }
 
@@ -19,24 +20,42 @@
     width: 100%;
     border: 2px solid #f1f1f1;
     margin-top: 15px;
+    margin-bottom: 15px;
 
     .receipePic {
-        height: 150px;
+        height: 200px;
         overflow: hidden;
     }
 
     .receipeInfo {
         padding: 0 15px 0 15px;
+        border: 2px solid #d6d6d6;
+        border-top: 0;
+
+        .receipeName {
+            font-family: 'Lobster', cursive;
+            font-size: 20px;
+            color: #ff6d6d;
+            padding-top: 10px;
+            margin: 0;
+        }
+
+        .receipePeople, .receipeIngredient {
+            color: #bfbfbf;
+            font-weight: 700;
+            margin: 8px 0 0 0;
+        }
     
         ul {
             list-style: none;
             display: inline-flex;
             width: 100%;
             padding-left: 0;
+            margin: 20px 0 5px 0;
 
             .exportIcon {
                 margin-left: 0;
-                margin-right: 140px;
+                margin-right: 165px;
             }
     
             li {
