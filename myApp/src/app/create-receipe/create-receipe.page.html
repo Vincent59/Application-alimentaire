@@ -5,33 +5,39 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
-      <ion-input placeholder="Nom de recette"></ion-input>
-    </ion-item>
+    
+          <ion-item>
+            <ion-input [(ngModel)]="recette.nom" placeholder="Nom de recette"></ion-input>
+          </ion-item>
 
-    <ion-item>
-      <ion-input placeholder="Nombre de personnes"></ion-input>
-    </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="recette.nbPers" placeholder="Nombre de personnes"></ion-input>
+          </ion-item>
 
-    <ion-item>
-      <ion-input placeholder="Origine"></ion-input>
-    </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="recette.source" placeholder="Source"></ion-input>
+          </ion-item>
 
-    <ion-item class="addBloc" lines="none">
-        <ion-button class="btnAdd">Ajouter des ingrédients</ion-button>
-    </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="recette.page" placeholder="Page"></ion-input>
+          </ion-item>
 
-    <ion-item class="addBloc" lines="none">
-      <ion-label>0 ingrédient(s) ajouté(s)</ion-label>
-    </ion-item>
+          <ion-item class="addBloc" lines="none">
+              <ion-button class="btnAdd" (click)="selectedView = 'addIngr'">Ajouter des ingrédients</ion-button>
+          </ion-item>
 
-    <ion-item class="addBloc" lines="none">
-      <ion-button class="btnExport">Exporter sur Excel</ion-button>
-    </ion-item>
+          <ion-item class="addBloc" lines="none">
+            <ion-label>0 ingrédient(s) ajouté(s)</ion-label>
+          </ion-item>
 
-    <ion-item class="addBloc" lines="none">
-        <ion-button class="btnSave">Enregistrer</ion-button>
-    </ion-item>
+          <ion-item class="addBloc" lines="none">
+            <ion-button class="btnExport">Exporter sur Excel</ion-button>
+          </ion-item>
+
+          <ion-item class="addBloc" lines="none">
+              <ion-button class="btnSave" (click)="addRecette()">Enregistrer</ion-button>
+          </ion-item>     
+
 </ion-content>
 
 <ion-footer>

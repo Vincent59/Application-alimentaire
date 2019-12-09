@@ -26,9 +26,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.db.getDatabaseState().subscribe(rdy => {
       if (rdy) {
-        this.db.getRecettes().subscribe(recettes => {
-          console.log("ok");
-        })
+        this.db.getRecettes();
       }
     });
   }

@@ -5,32 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" *ngFor="let element of receipe">
-      <div class="receipeBloc">
-          <div class="receipePic" >
-            <img src={{element.image}}>
-          </div>
-          <div class="receipeInfo">
-            <p class="receipeName">{{element.name}}</p>
-            <p class="receipePeople">{{element.personne}} personne(s)</p>
-            <p class="receipeIngredient">{{element.ingredients}} ingrédient(s)</p>
-            <ul>
-                <li class="exportIcon">
-                    <ion-icon ios="ios-download" md="md-download"></ion-icon>
-                </li>
-                <li>
-                    <ion-icon name="create"></ion-icon>
-                </li>
-                <li>
-                    <ion-icon name="nutrition"></ion-icon>
-                </li>
-                <li>
-                    <ion-icon name="information-circle"></ion-icon>
-                </li>
-              </ul>
-          </div>
-      </div>
-  </ion-item>
   <ion-item lines="none" *ngFor="let recette of recettes">
     <div class="receipeBloc">
         <div class="receipePic" >
@@ -39,12 +13,17 @@
         <div class="receipeInfo">
           <p class="receipeName">{{recette.nom}}</p>
           <p class="receipePeople">{{recette.nbPers}} personne(s)</p>
-          <p class="receipeIngredient">XX ingrédient(s)</p>
+          <p class="receipeIngredient">{{recette.nbIngr}} ingrédient(s)</p>
           <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
           <ul>
               <li class="exportIcon">
                   <ion-icon ios="ios-download" md="md-download"></ion-icon>
               </li>
+              <li>
+                  <ion-button (click)="deleteRecette(recette.id)">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+            </li>
               <li>
                   <ion-icon name="create"></ion-icon>
               </li>
@@ -52,7 +31,7 @@
                   <ion-icon name="nutrition"></ion-icon>
               </li>
               <li>
-                  <ion-icon name="information-circle"></ion-icon>
+                    <ion-icon name="information-circle"></ion-icon>
               </li>
             </ul>
         </div>

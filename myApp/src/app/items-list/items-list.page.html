@@ -5,6 +5,49 @@
 </ion-header>
 
 <ion-content>
+    <ion-segment [(ngModel)]="selectedView">
+        <ion-segment-button value="items-list">
+          <ion-label>Liste</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="add-item">
+          <ion-label>Ajouter</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="selectedView">
+        <div *ngSwitchCase="'items-list'">
+          <ion-item lines="none" *ngFor="let ingredient of ingredients">
+              <div class="itemBloc">
+                  <div class="itemInfo">
+                    <p class="itemName">{{ingredient.nom}} ({{ingredient.unite}})</p>
+                    <p class="itemNb">Utilisé dans {{ingredient.nbRecettes}} recette(s)</p>
+                    <ul>
+                        <li>
+                            <ion-button (click)="deleteIngredient(ingredient.id)">
+                              <ion-icon name="trash"></ion-icon>
+                            </ion-button>
+                      </li>
+                        <li>
+                            <ion-icon name="create"></ion-icon>
+                        </li>
+                      </ul>
+                  </div>
+              </div>
+          </ion-item>
+        </div>
+
+        <div *ngSwitchCase="'add-item'">
+            <ion-item>
+              <ion-input [(ngModel)]="ingredient.nom" placeholder="Nom de l'ingrédient"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select [(ngModel)]="ingredient.um" placeholder="Unité de l'ingrédient">
+                <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-button expand="block" (click)="addIngredient()">Ajouter l'ingrédient</ion-button>
+          </div>
+        </div>
 
 </ion-content>
 
