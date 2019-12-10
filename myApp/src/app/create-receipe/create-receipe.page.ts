@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { SecondPage } from '../modals/second/second.page';
+import { DatabaseService, Ingredient } from '../services/database.service';
 
 @Component({
   selector: 'app-create-receipe',
@@ -9,66 +11,46 @@ import { SecondPage } from '../modals/second/second.page';
 })
 export class CreateReceipePage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  public ingredients: Ingredient[] = [
+    {
+      id: 1,
+      nom:'test 1',
+      um_id: 1,
+      unite:'Gramme',
+      nbRecettes:0
+    },
+    {
+      id: 2,
+      nom:'test 2',
+      um_id: 2,
+      unite:'Unité',
+      nbRecettes:0
+    }
+  ];
+  recette = {};
+  ingList = [];
 
   public ingredientToShow = [];
 
-
-  public Ingredients = [
-    {
-      id: '1',
-      name: 'Concombre',
-      unite: 'g'
-    },
-    {
-      id: '2',
-      name: 'Pates',
-      unite: 'g'
-    },
-    {
-      id: '3',
-      name: 'Roquette',
-      unite: 'g'
-    },
-    {
-      id: '4',
-      name: 'Piment',
-      unite: 'pincé'
-    },
-    {
-      id: '5',
-      name: 'Ail',
-      unite: 'g'
-    },
-    {
-      id: '6',
-      name: 'Mayonnaise',
-      unite: 'ml'
-    },
-    {
-      id: '7',
-      name: 'Poivrons',
-      unite: 'g'
-    },
-    {
-      id: '8',
-      name: 'Oeufs',
-      unite: 'g'
-    },
-    {
-      id: '9',
-      name: 'Bouillon de légumes',
-      unite: 'L'
-    },
-  ]
-
   public choseIngredients: string;
+
+  constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router) { }
+
+  ngOnInit() {
+    this.db.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.db.getIngredients().subscribe(ingredients => {
+          // this.ingredients = ingredients;
+        })
+      }
+    });
+  }
 
   async openModalWithData() {
     const modal = await this.modalController.create({
       component: SecondPage,
       componentProps: {
-        Ingredients: this.Ingredients
+        Ingredients: this.ingredients
       }
     });
     modal.onWillDismiss().then(dataReturned => {
@@ -85,22 +67,18 @@ export class CreateReceipePage implements OnInit {
     });
 
     return await modal.present().then(_ => {
-      console.log('Sending: ', this.Ingredients);
+      console.log('Sending: ', this.ingredients);
     })
   }
 
-  ngOnInit() {
-    this.db.getDatabaseState().subscribe(rdy => {
-      if (rdy) {
-        this.db.getIngredients().subscribe(ingredients => {
-          this.ingredients = ingredients;
-        })
-      }
-    });
-  }
   addRecette() {
-    this.db.addRecette(this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingList)
+    this.db.addRecette(this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingredientToShow)
     .then(async _ => {
+      for(let ing of this.ingredientToShow){
+        console.log("id : " + ing.id);
+        console.log("name : " + ing.name);
+        console.log("unite : " + ing.unite);
+      }
       let toast = await this.toast.create({
         message: 'Recette créée',
         duration: 3000

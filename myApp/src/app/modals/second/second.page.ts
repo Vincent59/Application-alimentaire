@@ -21,6 +21,7 @@ export class SecondPage implements OnInit {
     {
       console.log(document.querySelectorAll(".active"));
       this.choseIngredients.push({
+        "id": document.querySelectorAll(".active")[i].getAttribute("data-id"),
         "name": document.querySelectorAll(".active")[i].innerHTML,
         "unite": document.querySelectorAll(".active")[i].getAttribute("data-unite")
         });
