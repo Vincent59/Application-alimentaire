@@ -31,8 +31,8 @@ export class CreateReceipePage implements OnInit {
         })
       }
     });
-    this.ingList.push({ingredientId : 1 , qte : 100});
-    this.ingList.push({ingredientId : 2 , qte : 50});
+    // this.ingList.push({ingredientId : 1 , qte : 100});
+    // this.ingList.push({ingredientId : 2 , qte : 50});
   }
 
   addRecette() {
