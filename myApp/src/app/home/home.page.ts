@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  loading: any;
+
+  constructor(private loadingController: LoadingController, private db: DatabaseService) { }
+
+  async ionViewWillEnter() {
+    this.loading = await this.loadingController.create({
+      duration: 1000,
+      message: ''
+    });
+
+    this.loading.present();
+
+  }
 
   ngOnInit() {
-    console.log("ok");
+    this.db.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.db.getRecettes();
+      }
+    });
   }
 
 }

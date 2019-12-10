@@ -3,6 +3,5 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "angular",
-  "strict-ssl": false
+  "type": "angular"
 }

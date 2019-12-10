@@ -13,8 +13,6 @@ export class CreateReceipePage implements OnInit {
 
   public ingredientToShow = [];
 
-  ngOnInit() {
-  }
 
   public Ingredients = [
     {
@@ -91,4 +89,25 @@ export class CreateReceipePage implements OnInit {
     })
   }
 
+  ngOnInit() {
+    this.db.getDatabaseState().subscribe(rdy => {
+      if (rdy) {
+        this.db.getIngredients().subscribe(ingredients => {
+          this.ingredients = ingredients;
+        })
+      }
+    });
+  }
+  addRecette() {
+    this.db.addRecette(this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingList)
+    .then(async _ => {
+      let toast = await this.toast.create({
+        message: 'Recette créée',
+        duration: 3000
+      });
+      toast.present();
+      this.router.navigateByUrl('/');
+      this.recette = {};
+    });
+  }
 }
