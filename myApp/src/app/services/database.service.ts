@@ -130,9 +130,10 @@ export class DatabaseService {
     return this.database.executeSql('INSERT INTO recette (nom, nb_pers, source, page) VALUES (?, ?, ?, ?)', data).then(data => {
       this.getLastRowId().then(last => {
         recetteId = last;
-        for(let ing of ingList){
-          console.log("ing : " + ing.ingredientId + ", " + ing.qte);
-          this.addRecette_Ingredients(recetteId, ing.ingredientId, ing.qte);
+        if (ingList.length !== 0){
+          for(let ing of ingList){
+            this.addRecette_Ingredients(recetteId, ing.ingredientId, ing.qte);
+          }
         }
       }
       )
@@ -236,12 +237,19 @@ export class DatabaseService {
     });
   }
 
+  updateIngredient(ingredient: Ingredient) {
+    let data = [ingredient.nom, ingredient.um_id];
+    return this.database.executeSql(`UPDATE ingredients SET nom = ?, um_id = ? WHERE id =  ${ingredient.id};`, data).then(data => {
+      this.loadDB();
+    })
+  }
+
   getRecette_ingredients(): Observable<Recette_ingredients[]> {
     return this.recette_ingredients.asObservable();
   }
 
   loadRecette_Ingredients() {
-    let query = 'select recette.id as id_recette, ingredients.id as id_ingredient, ingredients.nom as ingredient, qte_ingredient, um.nom as unite from recette LEFT join recette_ingredients ON recette.id = recette_ingredients.id_recette LEFT join ingredients ON recette_ingredients.id_ingredient = ingredients.id LEFT JOIN um ON um.id = ingredients.um_id;';
+    let query = 'select recette.id as id_recette, ingredients.id as id_ingredient, ingredients.nom as ingredient, qte_ingredient, um.nom as unite from recette join recette_ingredients ON recette.id = recette_ingredients.id_recette join ingredients ON recette_ingredients.id_ingredient = ingredients.id JOIN um ON um.id = ingredients.um_id;';
     return this.database.executeSql(query, []).then(data => {
       let recette_ingredients: Recette_ingredients[] = [];
  
@@ -265,6 +273,12 @@ export class DatabaseService {
     return this.database.executeSql('INSERT INTO recette_ingredients (id_recette, id_ingredient, qte_ingredient) VALUES (?, ?, ?)', data).then(data => {
       this.loadDB();
     });
+  }
+
+  updateRecette_Ingredients(recette, ingredient, qte){
+    return this.database.executeSql(`INSERT OR IGNORE INTO recette_ingredients (id_recette, id_ingredient, qte_ingredient) VALUES (${recette}, ${ingredient}, ${qte}); UPDATE recette_ingredients SET qte_ingredient = ${qte} WHERE id_recette = ${recette} and id_ingredient = ${qte};`).then(data => {
+      this.loadDB();
+    })
   }
 
 }
