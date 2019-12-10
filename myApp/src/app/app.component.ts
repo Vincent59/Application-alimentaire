@@ -4,63 +4,34 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { timer } from 'rxjs';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
   ) {
     this.initializeApp();
   }
 
+  showSplash = true; // <-- show animation
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.show();
+      this.splashScreen.hide();
+
+      timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3s
     });
   }
 
-  public items = [
-    {
-      name: 'Burger',
-      path: ''
-    },
-    {
-      name: 'Tomate',
-      path: ''
-    },
-    {
-      name: 'Salade',
-      path: ''
-    },
-    {
-      name: 'Riz',
-      path: ''
-    },
-    {
-      name: 'Sauce Tomate',
-      path: ''
-    },
-    {
-      name: 'Sauce mayonnaise',
-      path: ''
-    },
-    {
-      name: 'Pomme de terre',
-      path: ''
-    },
-    {
-      name: 'Burger',
-      path: ''
-    },
-    {
-      name: 'Burger',
-      path: ''
-    },
-  ]
+  
 }

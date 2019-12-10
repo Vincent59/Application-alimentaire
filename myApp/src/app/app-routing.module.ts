@@ -21,7 +21,12 @@ const routes: Routes = [
   {
     path: 'search-part',
     loadChildren: () => import('./search-part/search-part.module').then( m => m.SearchPartPageModule)
+  },
+  {
+    path: 'second',
+    loadChildren: () => import('./modals/second/second.module').then( m => m.SecondPageModule)
   }
+
 ];
 @NgModule({
   imports: [

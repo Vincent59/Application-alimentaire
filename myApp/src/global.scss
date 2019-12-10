@@ -22,8 +22,24 @@
 }
 
 ion-icon {
-    color: black;
+    color: rgb(0, 0, 0);
     font-size: 30px;
+}
+
+ion-icon[name=create] {
+    color: #4e81de;
+}
+
+ion-icon[name=trash] {
+    color: #e23939;
+}
+
+ion-icon[name=nutrition] {
+    color: #ffb86e;
+}
+
+ion-icon[name=information-circle] {
+    color: #c5c5c5;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight:700&display=swap');

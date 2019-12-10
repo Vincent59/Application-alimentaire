@@ -5,11 +5,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-searchbar showCancelButton="focus" placeholder="Ex: Burger"></ion-searchbar>
     <ion-searchbar animated placeholder="Ex: Burger"></ion-searchbar>
 
-    <ul>
-      <li *ngFor="let item of items">{{item.name}}</li>
+    <ul style="padding: 0; list-style: none;">
+      <li *ngFor="let item of infos">{{item.name}}</li>
     </ul>
 </ion-content>
 

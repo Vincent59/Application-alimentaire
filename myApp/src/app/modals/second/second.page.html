@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Choisissez vos ingrédients</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding style="text-align: center;">
+  <ion-text>
+    <ul class="ingredientList">
+      <li *ngFor="let ingredient of Ingredients" (click)="choseIngredient()" [attr.data-unite]="ingredient.unite" [(class)]="'ingredient'+ingredient.id">{{ ingredient.name }}</li>
+    </ul>
+  </ion-text>
+  <ion-button (click)="closeModal()">Valider</ion-button>
+</ion-content>

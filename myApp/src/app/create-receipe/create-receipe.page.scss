@@ -33,17 +33,35 @@
         height: 60px;
     }
 
-    .btnSave {
-        --background: #a2a4ab;
+    .btnExport {
+        --background: #3cd67c;
         color: #ffffff;
         width: 250px;
         height: 40px;
     }
 
-    .btnExport {
-        --background: #6ac17d;
+    .btnSave {
+        --background: #a2a4ab;
         color: #ffffff;
         width: 250px;
         height: 40px;
+        margin-bottom: 50px;
+    }
+}
+
+.ingredientSelected {
+    text-align: center;
+    padding: 0;
+    list-style: none;
+
+    li {
+        margin: 0 auto 15px auto;
+
+        input {
+            width: 20%;
+            margin-left: 20px;
+            text-align: right;
+            padding-right: 5px;
+        }
     }
 }

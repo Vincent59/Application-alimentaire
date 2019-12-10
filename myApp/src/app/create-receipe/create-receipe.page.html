@@ -18,12 +18,18 @@
     </ion-item>
 
     <ion-item class="addBloc" lines="none">
-        <ion-button class="btnAdd">Ajouter des ingrédients</ion-button>
+        <ion-button class="btnAdd" (click)="openModalWithData()">Ajouter des ingrédients</ion-button>
     </ion-item>
 
     <ion-item class="addBloc" lines="none">
-      <ion-label>0 ingrédient(s) ajouté(s)</ion-label>
+      <ion-label>{{ ingredientToShow?.length }} ingrédient(s) ajouté(s)</ion-label>
     </ion-item>
+
+    <ion-text>
+      <ul class="ingredientSelected">
+        <li *ngFor="let item of ingredientToShow">{{ item.name }} <input placeholder="10"> {{ item.unite }}</li>
+      </ul>
+    </ion-text>
 
     <ion-item class="addBloc" lines="none">
       <ion-button class="btnExport">Exporter sur Excel</ion-button>

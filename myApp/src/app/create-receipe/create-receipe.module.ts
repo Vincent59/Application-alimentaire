@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CreateReceipePageRoutingModule } from './create-receipe-routing.module';
 
 import { CreateReceipePage } from './create-receipe.page';
+import { SecondPage } from '../modals/second/second.page';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CreateReceipePage } from './create-receipe.page';
     IonicModule,
     CreateReceipePageRoutingModule
   ],
-  declarations: [CreateReceipePage]
+  declarations: [CreateReceipePage, SecondPage],
+  entryComponents: [SecondPage]
 })
 export class CreateReceipePageModule {}
