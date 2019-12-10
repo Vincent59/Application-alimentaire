@@ -9,19 +9,7 @@ import { DatabaseService } from '../services/database.service';
 })
 export class HomePage implements OnInit {
 
-  loading: any;
-
-  constructor(private loadingController: LoadingController, private db: DatabaseService) { }
-
-  async ionViewWillEnter() {
-    this.loading = await this.loadingController.create({
-      duration: 1000,
-      message: ''
-    });
-
-    this.loading.present();
-
-  }
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
     this.db.getDatabaseState().subscribe(rdy => {
