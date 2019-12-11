@@ -11,24 +11,10 @@ import { DatabaseService, Ingredient } from '../services/database.service';
 })
 export class CreateReceipePage implements OnInit {
 
-  public ingredients: Ingredient[] = [
-    {
-      id: 1,
-      nom:'test 1',
-      um_id: 1,
-      unite:'Gramme',
-      nbRecettes:0
-    },
-    {
-      id: 2,
-      nom:'test 2',
-      um_id: 2,
-      unite:'Unité',
-      nbRecettes:0
-    }
-  ];
+  public ingredients: Ingredient[] = [];
+
   recette = {};
-  ingList = [];
+  qtes = [];
 
   public ingredientToShow = [];
 
@@ -40,7 +26,7 @@ export class CreateReceipePage implements OnInit {
     this.db.getDatabaseState().subscribe(rdy => {
       if (rdy) {
         this.db.getIngredients().subscribe(ingredients => {
-          // this.ingredients = ingredients;
+          this.ingredients = ingredients;
         })
       }
     });
@@ -67,18 +53,15 @@ export class CreateReceipePage implements OnInit {
     });
 
     return await modal.present().then(_ => {
-      console.log('Sending: ', this.ingredients);
     })
   }
 
   addRecette() {
+    for(let i=0 ; i < this.ingredientToShow.length; i++){
+  		this.ingredientToShow[i].qte = this.qtes[i];
+      }
     this.db.addRecette(this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingredientToShow)
     .then(async _ => {
-      for(let ing of this.ingredientToShow){
-        console.log("id : " + ing.id);
-        console.log("name : " + ing.name);
-        console.log("unite : " + ing.unite);
-      }
       let toast = await this.toast.create({
         message: 'Recette créée',
         duration: 3000

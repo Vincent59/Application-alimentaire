@@ -124,15 +124,15 @@ export class DatabaseService {
     });
   }
 
-  addRecette(nom, nbPers, source, page, ingList) {
+  addRecette(nom, nbPers, source, page, itemList) {
     let data = [nom, nbPers, source, page];
     let recetteId = null;
     return this.database.executeSql('INSERT INTO recette (nom, nb_pers, source, page) VALUES (?, ?, ?, ?)', data).then(data => {
       this.getLastRowId().then(last => {
         recetteId = last;
-        if (ingList.length !== 0){
-          for(let ing of ingList){
-            this.addRecette_Ingredients(recetteId, ing.ingredientId, ing.qte);
+        if (itemList.length !== 0){
+          for(let item of itemList){
+            this.addRecette_Ingredients(recetteId, item.id, item.qte);
           }
         }
       }

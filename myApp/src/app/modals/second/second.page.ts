@@ -19,13 +19,12 @@ export class SecondPage implements OnInit {
   closeModal() {
     for(let i=0; i < document.querySelectorAll(".active").length; i++)
     {
-      console.log(document.querySelectorAll(".active"));
       this.choseIngredients.push({
         "id": document.querySelectorAll(".active")[i].getAttribute("data-id"),
         "name": document.querySelectorAll(".active")[i].innerHTML,
-        "unite": document.querySelectorAll(".active")[i].getAttribute("data-unite")
+        "unite": document.querySelectorAll(".active")[i].getAttribute("data-unite"),
+        "qte": 0
         });
-        console.log(this.choseIngredients)
     }
 
     this.modalController.dismiss(this.choseIngredients);
