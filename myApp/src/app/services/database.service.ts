@@ -36,6 +36,22 @@ export interface Recette_ingredients {
   unite: string
 }
 
+export interface RecetteWithIngredients {
+  id: number,
+  nom: string,
+  nbPers: number,
+  source: string,
+  page: string,
+  ingqte: IngredientWithQte[]
+}
+
+export interface IngredientWithQte{
+  id: number,
+  nom: string,
+  qte: number,
+  unite: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -141,15 +157,27 @@ export class DatabaseService {
     });
   }
 
-  getRecette(id): Promise<Recette> {
-    return this.database.executeSql('select recette.id, recette.nom, recette.source, recette.page, recette.nb_pers, count(ingredients.nom) as nb_ingredients from recette LEFT join recette_ingredients ON recette.id = recette_ingredients.id_recette LEFT join ingredients ON recette_ingredients.id_ingredient = ingredients.id WHERE recette.id= ?;', [id]).then(data => {
+  getRecette(id): Promise<RecetteWithIngredients> {
+    return this.database.executeSql('select recette.id as id_recette, ingredients.id as id_ingredient, recette.nom as recette, recette.nb_pers, recette.source, recette.page, ingredients.nom as ingredient, qte_ingredient, um.nom as unite from recette join recette_ingredients ON recette.id = recette_ingredients.id_recette join ingredients ON recette_ingredients.id_ingredient = ingredients.id JOIN um ON um.id = ingredients.um_id WHERE recette_ingredients.id_recette= ? ;', [id]).then(data => {
+      let ingqtes: IngredientWithQte[] = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+            ingqtes.push({ 
+              id: data.rows.item(i).id_ingredient,
+              nom: data.rows.item(i).ingredient,
+              qte: data.rows.item(i).qte_ingredient,
+              unite: data.rows.item(i).unite
+           });
+        }
+      }
+      
       return {
-        id: data.rows.item(0).id,
-        nom: data.rows.item(0).nom, 
+        id: data.rows.item(0).id_recette,
+        nom: data.rows.item(0).recette, 
         nbPers: data.rows.item(0).nb_pers, 
         source: data.rows.item(0).source,
         page: data.rows.item(0).page,
-        nbIngr: data.rows.item(0).nb_ingredients
+        ingqte: ingqtes
       }
     });
   }

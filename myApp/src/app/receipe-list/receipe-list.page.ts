@@ -48,4 +48,10 @@ export class ReceipeListPage implements OnInit {
     });
   }
 
+  getRecette(recetteId){
+    this.db.getRecette(recetteId).then(data => {
+      console.log(data);
+    });
+  }
+
 }
