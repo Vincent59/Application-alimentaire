@@ -37,21 +37,8 @@ export class ReceipeListPage implements OnInit {
     });
   }
 
-  deleteRecette(recetteId) {
-    this.db.deleteRecette(recetteId).then(async () => {
-      let toast = await this.toast.create({
-        message: 'Recette supprimée',
-        duration: 3000
-      });
-      toast.present();
-      this.router.navigateByUrl('/receipe-list');
-    });
-  }
-
-  getRecette(recetteId){
-    this.db.getRecette(recetteId).then(data => {
-      console.log(data);
-    });
+  goToRecipePage(id) {
+    this.router.navigateByUrl(`/recipes/${id}`);
   }
 
 }

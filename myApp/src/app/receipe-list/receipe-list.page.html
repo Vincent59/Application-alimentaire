@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" *ngFor="let recette of recettes">
+  <ion-item lines="none" *ngFor="let recette of recettes" >
     <div class="receipeBloc">
         <div class="receipePic" >
           <img src='assets/recette_1.jpg'>
@@ -20,15 +20,7 @@
                   <ion-icon ios="ios-download" md="md-download"></ion-icon>
               </li>
               <li>
-                  <ion-button (click)="deleteRecette(recette.id)">
-                    <ion-icon name="trash"></ion-icon>
-                  </ion-button>
-            </li>
-              <li>
-                  <ion-icon name="create"></ion-icon>
-              </li>
-              <li>
-                  <ion-icon name="nutrition"></ion-icon>
+                  <ion-icon name="nutrition" (click) = "goToRecipePage(recette.id)"></ion-icon>
               </li>
             </ul>
         </div>

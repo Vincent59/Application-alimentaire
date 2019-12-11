@@ -42,7 +42,7 @@ export interface RecetteWithIngredients {
   nbPers: number,
   source: string,
   page: string,
-  ingqte: IngredientWithQte[]
+  ingqtes: IngredientWithQte[]
 }
 
 export interface IngredientWithQte{
@@ -177,7 +177,7 @@ export class DatabaseService {
         nbPers: data.rows.item(0).nb_pers, 
         source: data.rows.item(0).source,
         page: data.rows.item(0).page,
-        ingqte: ingqtes
+        ingqtes: ingqtes
       }
     });
   }
