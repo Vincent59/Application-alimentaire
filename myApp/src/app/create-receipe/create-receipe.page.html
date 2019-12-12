@@ -34,9 +34,6 @@
         <li *ngFor="let item of ingredientToShow; let i = index">{{ item.name }} <input placeholder="10" [(ngModel)]="qtes[i]"> {{ item.unite }}</li>
       </ul>
     </ion-text>
-    <ion-item class="addBloc" lines="none">
-      <ion-button class="btnExport">Exporter sur Excel</ion-button>
-    </ion-item>
 
           <ion-item class="addBloc" lines="none">
               <ion-button class="btnSave" (click)="addRecette()">Enregistrer</ion-button>

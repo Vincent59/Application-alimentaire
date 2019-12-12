@@ -11,7 +11,6 @@
             <div class="receipeInfo">
               <p class="receipeName">{{recette.nom}}</p>
               <p class="receipePeople">{{recette.nbPers}} personne(s)</p>
-              <p class="receipeIngredient">{{recette.ingqtes.length}} ingrédient(s)</p>
               <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
               <p class="ings"> Ingrédients : </p>
               <ion-list>
@@ -20,9 +19,6 @@
                   </ion-item>
               </ion-list>
               <ul>
-                  <li class="exportIcon">
-                      <ion-icon ios="ios-download" md="md-download"></ion-icon>
-                  </li>
                   <li>
                         <ion-icon name="trash" (click)="deleteRecette(recette.id)"></ion-icon>
                 </li>
