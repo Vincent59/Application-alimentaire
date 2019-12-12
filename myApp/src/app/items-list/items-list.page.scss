@@ -1,20 +1,23 @@
 .ingredientList {
     list-style: none;
-    padding: 0;
+    float: left;
+    width: 45%;
+    height: 150px;
+    max-height: 150px;
+    box-shadow: 1px 1px 3px 0px #828282;
+    margin-left: 14px;
+    text-align: center;
+    padding: 0 5px;
+    margin-bottom: 20px;
+    color: #667be2;
+    font-weight: 600;
+    position: relative;
 
-    li {
-        float: left;
-        width: 45%;
-        height: 150px;
-        max-height: 150px;
-        box-shadow: 1px 1px 3px 0px #828282;
-        margin-left: 14px;
-        text-align: center;
-        padding: 20px 10px 10px 10px;
-        margin-bottom: 20px;
-        color: #667be2;
-        font-weight: 600;
-        position: relative;
+    .itemBloc {
+
+        .itemInfo {
+            height: 135px;
+        }
 
         p {
             color: rgb(179, 179, 179);

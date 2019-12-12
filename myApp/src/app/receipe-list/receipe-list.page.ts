@@ -1,22 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DatabaseService, Recette, Ingredient, Recette_ingredients } from '../services/database.service';
 import { HomePage } from '../home/home.page';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
+import { HttpClient } from '@angular/common/http';
+import { ExcelServicesService } from '../services/excel-services.service';
+
+
 @Component({
   selector: 'app-receipe-list',
   templateUrl: './receipe-list.page.html',
   styleUrls: ['./receipe-list.page.scss'],
 })
+
+
 export class ReceipeListPage implements OnInit {
 
   recettes: Recette[] = [];
   ingredients: Ingredient[] = [];
   recette_ingredients: Recette_ingredients[] = [];
+  
 
-  constructor(private db: DatabaseService, private router: Router, private toast: ToastController) {}
+  constructor(
+    private db: DatabaseService,
+    private router: Router,
+    private toast: ToastController,
+    private excelService:ExcelServicesService,
+    private http: HttpClient,
+    ) {
+    
+    this.getJSON().subscribe(data => {
+      data.forEach(row => {
+        this.excel.push(row);
+      });
+     });
+  }
+
+  excel=[];
+  exportAsXLSX():void {
+    console.log("export button");
+    console.log(this.excel);
+    this.excelService.exportAsExcelFile(this.excel, 'sample');
+  }
+  public getJSON(): Observable<any> {
+    return this.http.get('https://api.myjson.com/bins/zg8of');
+  }
 
   ngOnInit() {
     this.db.getDatabaseState().subscribe(rdy => {
