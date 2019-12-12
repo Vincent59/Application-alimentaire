@@ -166,9 +166,9 @@ export class DatabaseService {
   }
 
   getRecette(id): Promise<RecetteWithIngredients> {
-    return this.database.executeSql('select recette.id as id_recette, ingredients.id as id_ingredient, recette.nom as recette, recette.nb_pers, recette.source, recette.page, ingredients.nom as ingredient, qte_ingredient, um.nom as unite from recette join recette_ingredients ON recette.id = recette_ingredients.id_recette join ingredients ON recette_ingredients.id_ingredient = ingredients.id JOIN um ON um.id = ingredients.um_id WHERE recette_ingredients.id_recette= ? ;', [id]).then(data => {
+    return this.database.executeSql('select recette.id as id_recette, ingredients.id as id_ingredient, recette.nom as recette, recette.nb_pers, recette.source, recette.page, ingredients.nom as ingredient, qte_ingredient, um.nom as unite FROM recette LEFT JOIN recette_ingredients ON recette.id = recette_ingredients.id_recette LEFT JOIN ingredients ON recette_ingredients.id_ingredient = ingredients.id LEFT JOIN um ON um.id = ingredients.um_id WHERE recette.id= ? ;', [id]).then(data => {
       let ingqtes: IngredientWithQte[] = [];
-      if (data.rows.length > 0) {
+      if (data.rows.length > 0  && data.rows.item(0).id_ingredient !== null) {
         for (var i = 0; i < data.rows.length; i++) {
             ingqtes.push({ 
               id: data.rows.item(i).id_ingredient,
@@ -258,8 +258,6 @@ export class DatabaseService {
   getIngredient(id): Promise<IngredientWithRecettes> {
     return this.database.executeSql('SELECT ingredients.id, ingredients.nom, ingredients.um_id, um.nom AS unite, recette.id as id_recette, recette.nom as nom_recette FROM ingredients LEFT JOIN um ON um.id = ingredients.um_id LEFT join recette_ingredients ON ingredients.id = recette_ingredients.id_ingredient LEFT join recette ON recette_ingredients.id_recette = recette.id WHERE ingredients.id = ?', [id]).then(data => {
       let recettes: any[] = [];
-      console.log(data.rows.item(0).id_recette)
-      console.log(data.rows.item(0).id_recette !== null);
       if (data.rows.length > 0 && data.rows.item(0).id_recette !== null) {
         for (var i = 0; i < data.rows.length; i++) {
             recettes.push({ 

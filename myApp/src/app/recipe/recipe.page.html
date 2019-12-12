@@ -12,12 +12,17 @@
               <p class="receipeName">{{recette.nom}}</p>
               <p class="receipePeople">{{recette.nbPers}} personne(s)</p>
               <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
-              <p class="ings"> Ingrédients : </p>
-              <ion-list>
-                  <ion-item lines="none" *ngFor="let ing of recette.ingqtes" >
-                      <p class="ing">{{ing.nom}} : {{ing.qte}} {{ing.unite}}</p>
-                  </ion-item>
-              </ion-list>
+              <div *ngIf="recette.ingqtes.length > 0">
+                <p class="ings"> Ingrédients : </p>
+                <ion-list>
+                    <ion-item lines="none" *ngFor="let ing of recette.ingqtes" >
+                        <p class="ing">{{ing.nom}} : {{ing.qte}} {{ing.unite}}</p>
+                    </ion-item>
+                </ion-list>
+              </div>
+              <div *ngIf="recette.ingqtes.length == 0">
+                  <p class="ings"> Aucun ingrédient dans cette recette</p>
+              </div>
               <ul>
                   <li>
                         <ion-icon name="trash" (click)="deleteRecette(recette.id)"></ion-icon>
