@@ -30,22 +30,6 @@ export class ReceipeListPage implements OnInit {
     private excelService:ExcelServicesService,
     private http: HttpClient,
     ) {
-    
-    this.getJSON().subscribe(data => {
-      data.forEach(row => {
-        this.excel.push(row);
-      });
-     });
-  }
-
-  excel=[];
-  exportAsXLSX():void {
-    console.log("export button");
-    console.log(this.excel);
-    this.excelService.exportAsExcelFile(this.excel, 'sample');
-  }
-  public getJSON(): Observable<any> {
-    return this.http.get('https://api.myjson.com/bins/zg8of');
   }
 
   ngOnInit() {

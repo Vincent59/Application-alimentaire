@@ -16,23 +16,6 @@
           <p class="receipeIngredient">{{recette.nbIngr}} ingrédient(s)</p>
           <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
           <ul>
-              <li class="exportIcon">
-                  <button (click)="save()" class="btn btn-info mb-4 mt-2">Download Excel</button>
-                  <table class="table table-striped table-bordered table-hover">
-                  <tr>
-                    <th>Name</th>
-                    <th>Month</th>
-                    <th>Sales</th>
-                    <th>Percentage</th>
-                  </tr>
-                  <tr *ngFor="let item of excel">
-                    <td>{{item.Name}}</td>
-                    <td>{{item.Month}}</td>
-                    <td>{{item.Sales_Figure}}</td>
-                    <td>{{item.Perc}}</td>
-                  </tr>
-                  </table>
-              </li>
               <li>
                   <ion-icon name="nutrition" (click) = "goToRecipePage(recette.id)"></ion-icon>
               </li>
