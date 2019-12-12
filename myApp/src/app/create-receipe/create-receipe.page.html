@@ -31,7 +31,7 @@
 
     <ion-text>
       <ul class="ingredientSelected">
-        <li *ngFor="let item of ingredientToShow; let i = index">{{ item.name }} <input placeholder="10" [(ngModel)]="qtes[i]"> {{ item.unite }}</li>
+        <li *ngFor="let item of ingredientToShow; let i = index">{{ item.name }} <input placeholder="10" [(ngModel)]="qtes[i]"> {{ item.unite }}<span *ngIf="item.unite !== 'CàC' && item.unite !== 'CàS'">(s)</span></li>
       </ul>
     </ion-text>
 

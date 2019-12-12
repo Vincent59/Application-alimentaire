@@ -4,16 +4,24 @@ import { Router } from '@angular/router';
 import { SecondPage } from '../modals/second/second.page';
 import { DatabaseService, Ingredient } from '../services/database.service';
 
+export interface RecipeObject {
+  nom: string,
+  nbPers: number,
+  source: string,
+  page: string
+}
+
 @Component({
   selector: 'app-create-receipe',
   templateUrl: './create-receipe.page.html',
   styleUrls: ['./create-receipe.page.scss'],
 })
+
 export class CreateReceipePage implements OnInit {
 
   public ingredients: Ingredient[] = [];
 
-  recette = {};
+  recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};;
   qtes = [];
 
   public ingredientToShow = [];
@@ -68,7 +76,7 @@ export class CreateReceipePage implements OnInit {
       });
       toast.present();
       this.router.navigateByUrl('/');
-      this.recette = {};
+      this.recette = {nom: '', nbPers: null, source: '', page: ''};
     });
   }
 }

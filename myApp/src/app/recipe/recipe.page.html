@@ -16,7 +16,7 @@
                 <p class="ings"> Ingrédients : </p>
                 <ion-list>
                     <ion-item lines="none" *ngFor="let ing of recette.ingqtes" >
-                        <p class="ing">{{ing.nom}} : {{ing.qte}} {{ing.unite}}</p>
+                        <p class="ing">{{ing.nom}} : {{ing.qte}} {{ing.unite}}<span *ngIf="ing.unite !== 'CàC' && ing.unite !== 'CàS' && ing.qte > 1">s</span></p>
                     </ion-item>
                 </ion-list>
               </div>

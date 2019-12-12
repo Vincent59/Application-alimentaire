@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `um` (
   `nom` varchar(255) NOT NULL
   );
 
-INSERT or IGNORE INTO `um` VALUES (1,'Unité'),(2,'Gramme'),(3,'CAC'),(4,'Pincée'),(5,'CAS'),(6,'Tranche'),(7,'Centilitre'),(8,'Brin'),(9,'Feuille');
+INSERT or IGNORE INTO `um` VALUES (1,'unité'),(2,'gramme'),(3,'CàC'),(4,'pincée'),(5,'CàS'),(6,'tranche'),(7,'centilitre'),(8,'brin'),(9,'feuille');
 
 
 CREATE TABLE IF NOT EXISTS `ingredients` (
