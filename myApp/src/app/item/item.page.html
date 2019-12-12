@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ingrédient</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="item">
+      <ion-item lines="none" >
+        <div class="itemBloc">
+            <div class="itemInfo">
+              <p class="itemName">{{item.nom}}</p>
+              <p class="itemUnit">Se compte en : {{item.unite}}</p>
+              <div *ngIf="item.recettes.length > 0">
+                  <p class="recettes"> Présent dans les recettes suivantes : </p>
+                  <ion-list>
+                      <ion-item lines="none" *ngFor="let recette of item.recettes" (click) = "goToRecipePage(recette.id)">
+                          <p class="recette">{{recette.nom}}</p>
+                      </ion-item>
+                  </ion-list>
+              </div>
+              <div *ngIf="item.recettes.length == 0">
+                  <p class="recettes"> Présent dans aucune recette</p>
+              </div>
+              <ul>
+                  <li>
+                        <ion-icon name="trash" (click)="deleteIngredient()"></ion-icon>
+                </li>
+                  <li>
+                      <ion-icon name="create"></ion-icon>
+                  </li>
+                </ul>
+            </div>
+        </div>
+      </ion-item>
+    </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-item class="footerLeft" routerLink="" lines="none">
+        <ion-icon name="home"></ion-icon>
+      </ion-item>
+
+      <ion-item class="footerRight" routerLink="/search-part" lines="none">
+          <ion-icon name="search"></ion-icon>
+      </ion-item>
+  </ion-toolbar>
+</ion-footer>

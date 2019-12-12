@@ -52,6 +52,14 @@ export interface IngredientWithQte{
   unite: string
 }
 
+export interface IngredientWithRecettes {
+  id: number,
+  nom: string,
+  um_id: number,
+  unite: string,
+  recettes: any[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -247,14 +255,26 @@ export class DatabaseService {
     });
   }
 
-  getIngredient(id): Promise<Ingredient> {
-    return this.database.executeSql('SELECT ingredients.id, ingredients.nom, ingredients.um_id, um.nom AS unite, count(recette.id) as nb_recettes FROM ingredients LEFT JOIN um ON um.id = ingredients.um_id LEFT join recette_ingredients ON ingredients.id = recette_ingredients.id_ingredient LEFT join recette ON recette_ingredients.id_recette = recette.id WHERE ingredients.id = ?', [id]).then(data => {
+  getIngredient(id): Promise<IngredientWithRecettes> {
+    return this.database.executeSql('SELECT ingredients.id, ingredients.nom, ingredients.um_id, um.nom AS unite, recette.id as id_recette, recette.nom as nom_recette FROM ingredients LEFT JOIN um ON um.id = ingredients.um_id LEFT join recette_ingredients ON ingredients.id = recette_ingredients.id_ingredient LEFT join recette ON recette_ingredients.id_recette = recette.id WHERE ingredients.id = ?', [id]).then(data => {
+      let recettes: any[] = [];
+      console.log(data.rows.item(0).id_recette)
+      console.log(data.rows.item(0).id_recette !== null);
+      if (data.rows.length > 0 && data.rows.item(0).id_recette !== null) {
+        for (var i = 0; i < data.rows.length; i++) {
+            recettes.push({ 
+              id: data.rows.item(i).id_recette,
+              nom: data.rows.item(i).nom_recette,
+           });
+        }
+      }
+      
       return {
         id: data.rows.item(0).id,
         nom: data.rows.item(0).nom, 
         um_id: data.rows.item(0).um_id, 
         unite: data.rows.item(0).unite,
-        nbRecettes: data.rows.item(0).nb_recettes
+        recettes: recettes
       }
     });
   }

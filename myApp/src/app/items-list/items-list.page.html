@@ -2,29 +2,25 @@
   <ion-toolbar>
     <ion-title>Gérer les ingrédients</ion-title>
   </ion-toolbar>
+  <ion-segment [(ngModel)]="selectedView">
+      <ion-segment-button value="items-list">
+        <ion-label>Liste</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="add-item">
+        <ion-label>Ajouter</ion-label>
+      </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
-    <ion-segment [(ngModel)]="selectedView">
-        <ion-segment-button value="items-list">
-          <ion-label>Liste</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="add-item">
-          <ion-label>Ajouter</ion-label>
-        </ion-segment-button>
-    </ion-segment>
 
     <div [ngSwitch]="selectedView">
         <div *ngSwitchCase="'items-list'">
-          <ion-item lines="none" *ngFor="let ingredient of ingredients" class="ingredientList">
+          <ion-item lines="none" *ngFor="let ingredient of ingredients" class="ingredientList" (click) = "goToItemPage(ingredient.id)">
               <div class="itemBloc">
                   <div class="itemInfo">
                     <p class="itemName">{{ingredient.nom}} ({{ingredient.unite}})</p>
                     <p class="itemNb">Utilisé dans {{ingredient.nbRecettes}} recette(s)</p>
-                    <span>
-                        <ion-icon name="trash" (click)="deleteIngredient(ingredient.id)"></ion-icon>
-                        <ion-icon name="create"></ion-icon>
-                    </span>
                   </div>
               </div>
           </ion-item>

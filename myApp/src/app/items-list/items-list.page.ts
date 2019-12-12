@@ -49,23 +49,8 @@ export class ItemsListPage implements OnInit {
     });
   }
 
-  async deleteIngredient(ingredientId) {
-    if (this.ingredients.find(x=>x.id == ingredientId).nbRecettes == 0) {
-      this.db.deleteIngredient(ingredientId).then(async () => {
-        let toast = await this.toast.create({
-          message: 'Ingrédient supprimé',
-          duration: 3000
-        });
-        toast.present();
-        this.router.navigateByUrl('/items-list');
-      });      
-    } else {
-      let toast = await this.toast.create({
-        message: 'Ingrédient non supprimé car présent dans au moins une recette',
-        duration: 5000
-      });
-      toast.present();
-    }
+  goToItemPage(id) {
+    this.router.navigateByUrl(`/items/${id}`);
   }
 
 }

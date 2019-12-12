@@ -29,7 +29,12 @@ const routes: Routes = [
   {
     path: 'recipes/:id',
     loadChildren: () => import('./recipe/recipe.module').then( m => m.RecipePageModule)
+  },
+  {
+    path: 'items/:id',
+    loadChildren: () => import('./item/item.module').then( m => m.ItemPageModule)
   }
+
 
 
 ];
