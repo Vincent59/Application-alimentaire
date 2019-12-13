@@ -26,8 +26,6 @@ export class CreateReceipePage implements OnInit {
 
   public ingredientToShow = [];
 
-  public choseIngredients: string;
-
   constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router) { }
 
   ngOnInit() {
@@ -41,14 +39,17 @@ export class CreateReceipePage implements OnInit {
   }
 
   async openModalWithData() {
+    console.log("in open modal");
+    console.log(this.ingredientToShow);
     const modal = await this.modalController.create({
       component: SecondPage,
       componentProps: {
-        Ingredients: this.ingredients
+        ingredients: this.ingredients,
+        ingredientsToShow: this.ingredientToShow
       }
     });
     modal.onWillDismiss().then(dataReturned => {
-      this.choseIngredients = dataReturned.data;
+      this.ingredientToShow = [];
 
      dataReturned.data.forEach(element => 
 
