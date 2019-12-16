@@ -29,6 +29,10 @@ export class SecondPage implements OnInit {
     }
   }
 
+  closeModalWithoutUpdate() {
+    this.modalController.dismiss(this.choseIngredients);
+  }
+
   closeModal() {
     for(let i=0; i < document.querySelectorAll(".active").length; i++)
     {
@@ -39,7 +43,6 @@ export class SecondPage implements OnInit {
         "qte": 0
         });
     }
-
     this.modalController.dismiss(this.choseIngredients);
   }
 

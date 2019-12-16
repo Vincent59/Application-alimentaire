@@ -49,16 +49,17 @@ export class CreateReceipePage implements OnInit {
       }
     });
     modal.onWillDismiss().then(dataReturned => {
-      this.ingredientToShow = [];
+      if (dataReturned.data.length > 0) {
+        this.ingredientToShow = [];
 
-     dataReturned.data.forEach(element => 
+        dataReturned.data.forEach(element => 
 
-      this.ingredientToShow.push(element)
+        this.ingredientToShow.push(element)
 
-      );
+        );
       
-      document.querySelector(".btnAdd").innerHTML = "Modifier les ingrédients";
-
+        document.querySelector(".btnAdd").innerHTML = "Modifier les ingrédients";
+      }
     });
 
     return await modal.present().then(_ => {
