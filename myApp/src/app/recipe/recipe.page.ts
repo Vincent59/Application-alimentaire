@@ -17,10 +17,15 @@ export class RecipePage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let recetteId = params.get('id');
- 
-      this.db.getRecette(recetteId).then(data => {
-        this.recette = data;
+
+      this.db.getDatabaseState().subscribe(rdy => {
+        if (rdy) {
+          this.db.getRecette(recetteId).then(data => {
+            this.recette = data;
+          })
+        }
       });
+
     });
   }
 
@@ -33,6 +38,10 @@ export class RecipePage implements OnInit {
       toast.present();
       this.router.navigateByUrl('/receipe-list');
     });
+  }
+
+  goToUpdate(recetteId) {
+    this.router.navigateByUrl(`/update-recipe/${recetteId}`);
   }
 
 }

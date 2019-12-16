@@ -14,11 +14,12 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
  
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { SecondPage } from './modals/second/second.page';
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, SecondPage],
+  entryComponents: [SecondPage],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, 
     HttpClientModule],
   providers: [

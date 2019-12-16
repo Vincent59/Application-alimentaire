@@ -21,7 +21,8 @@ export class SecondPage implements OnInit {
         for (let ing of this.ingredients) {
           if (ingToShow.id === ing.id){
             this.isItemActive.push({
-              id: ingToShow.id
+              id: ingToShow.id,
+              qte: ingToShow.qte
             });
           }
         }
@@ -40,7 +41,7 @@ export class SecondPage implements OnInit {
         "id": +document.querySelectorAll(".active")[i].getAttribute("data-id"),
         "name": document.querySelectorAll(".active")[i].innerHTML,
         "unite": document.querySelectorAll(".active")[i].getAttribute("data-unite"),
-        "qte": 0
+        "qte": this.getQteOrZero(+document.querySelectorAll(".active")[i].getAttribute("data-id"))
         });
     }
     this.modalController.dismiss(this.choseIngredients);
@@ -62,6 +63,12 @@ export class SecondPage implements OnInit {
     if(this.isItemActive.find(item => item.id == id)){
       return true;
     } else return false;
+  }
+
+  getQteOrZero(id){
+    if(this.isItemActive.find(item => item.id == id)){
+      return this.isItemActive.find(item => item.id == id).qte;
+    } else return '';
   }
 
 }

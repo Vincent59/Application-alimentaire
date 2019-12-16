@@ -21,9 +21,8 @@ export class CreateReceipePage implements OnInit {
 
   public ingredients: Ingredient[] = [];
 
-  recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};;
-  qtes = [];
-
+  recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};
+  public qtes = [];
   public ingredientToShow = [];
 
   constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router) { }
@@ -39,8 +38,6 @@ export class CreateReceipePage implements OnInit {
   }
 
   async openModalWithData() {
-    console.log("in open modal");
-    console.log(this.ingredientToShow);
     const modal = await this.modalController.create({
       component: SecondPage,
       componentProps: {

@@ -196,9 +196,14 @@ export class DatabaseService {
     });
   }
  
-  updateRecette(recette: Recette) {
-    let data = [recette.nom, recette.nbPers, recette.source, recette.page];
-    return this.database.executeSql(`UPDATE recette SET nom = ?, nb_pers = ?, source = ?, page = ? WHERE id = ${recette.id}`, data).then(data => {
+  updateRecette(id, nom, nbPers, source, page, itemList) {
+    let data = [nom, nbPers, source, page];
+    return this.database.executeSql(`UPDATE recette SET nom = ?, nb_pers = ?, source = ?, page = ? WHERE id = ${id};`, data).then(data => {
+      this.deleteRecette_IngredientsByRecette(id).then(_ => {
+        for(let item of itemList) {
+          this.addRecette_Ingredients(id, item.id, item.qte);
+        }
+      })
       this.loadDB();
     })
   }
@@ -321,10 +326,10 @@ export class DatabaseService {
     });
   }
 
-  updateRecette_Ingredients(recette, ingredient, qte){
-    return this.database.executeSql(`INSERT OR IGNORE INTO recette_ingredients (id_recette, id_ingredient, qte_ingredient) VALUES (${recette}, ${ingredient}, ${qte}); UPDATE recette_ingredients SET qte_ingredient = ${qte} WHERE id_recette = ${recette} and id_ingredient = ${qte};`).then(data => {
+  deleteRecette_IngredientsByRecette(recetteId){
+    return this.database.executeSql(`DELETE FROM recette_ingredients WHERE id_recette = ?;`, [recetteId]).then(_ => {
       this.loadDB();
-    })
+    });
   }
 
 }
