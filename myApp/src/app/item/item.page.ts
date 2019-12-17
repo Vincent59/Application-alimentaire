@@ -19,7 +19,6 @@ export class ItemPage implements OnInit {
       let itemId = params.get('id');
  
       this.db.getIngredient(itemId).then(data => {
-        console.log(data);
         this.item = data;
       });
     });
@@ -46,6 +45,10 @@ export class ItemPage implements OnInit {
       });
       toast.present();
     }
+  }
+
+  goToUpdatePage() {
+    this.router.navigateByUrl(`/update-item/${this.item.id}`);
   }
 
 }

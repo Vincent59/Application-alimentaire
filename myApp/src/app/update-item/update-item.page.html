@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifier un ingrédient</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+      <ion-label>Nom de l'ingrédient :</ion-label>
+        <ion-input [(ngModel)]="ingredient.nom" placeholder="Nom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Unité de l'ingrédient :</ion-label>
+        <ion-select [(ngModel)]="ingredient.um" placeholder="Unité">
+          <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button expand="block" (click)="updateIngredient()">Enregistrer les modifications</ion-button>
+</ion-content>

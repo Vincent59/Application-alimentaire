@@ -32,9 +32,6 @@ export class ItemsListPage implements OnInit {
       if (rdy) {
         this.db.getIngredients().subscribe(ingredients => {
           this.ingredients = ingredients;
-          for(let ing of ingredients){
-            console.log("ingrédient : " + ing.nom + "(" + ing.unite + ")")
-          }
         })
         this.db.getUms().subscribe(ums => {
           for(let um of ums) {

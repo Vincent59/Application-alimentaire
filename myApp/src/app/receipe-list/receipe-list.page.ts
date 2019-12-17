@@ -43,9 +43,6 @@ export class ReceipeListPage implements OnInit {
         });
         this.db.getRecette_ingredients().subscribe(recette_ingredients => {
           this.recette_ingredients = recette_ingredients;
-          for(let recette_ingredient of recette_ingredients){
-            console.log("recette_ingredient : " + recette_ingredient.idRecette + ", " + recette_ingredient.idIngredient + ", " + recette_ingredient.nomIngredient + ", " + recette_ingredient.qteIngredient + ", " + recette_ingredient.unite);
-          }
         })
       }
     });

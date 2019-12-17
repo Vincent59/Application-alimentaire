@@ -197,13 +197,13 @@ export class DatabaseService {
   }
  
   updateRecette(id, nom, nbPers, source, page, itemList) {
+    this.deleteRecette_IngredientsByRecette(id).then(_ => {
+      for(let item of itemList) {
+        this.addRecette_Ingredients(id, item.id, item.qte);
+      }
+    });
     let data = [nom, nbPers, source, page];
     return this.database.executeSql(`UPDATE recette SET nom = ?, nb_pers = ?, source = ?, page = ? WHERE id = ${id};`, data).then(data => {
-      this.deleteRecette_IngredientsByRecette(id).then(_ => {
-        for(let item of itemList) {
-          this.addRecette_Ingredients(id, item.id, item.qte);
-        }
-      })
       this.loadDB();
     })
   }
@@ -288,9 +288,9 @@ export class DatabaseService {
     });
   }
 
-  updateIngredient(ingredient: Ingredient) {
-    let data = [ingredient.nom, ingredient.um_id];
-    return this.database.executeSql(`UPDATE ingredients SET nom = ?, um_id = ? WHERE id =  ${ingredient.id};`, data).then(data => {
+  updateIngredient(ingredientId, nom, um_id) {
+    let data = [nom, um_id];
+    return this.database.executeSql(`UPDATE ingredients SET nom = ?, um_id = ? WHERE id =  ${ingredientId};`, data).then(data => {
       this.loadDB();
     })
   }

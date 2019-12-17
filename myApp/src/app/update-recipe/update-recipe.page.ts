@@ -81,8 +81,7 @@ export class UpdateRecipePage implements OnInit {
         duration: 3000
       });
       toast.present();
-      this.router.navigateByUrl(`/receipe-list`);
-      // this.router.navigateByUrl(`/recipes/${this.initRecette.id}`);
+      this.router.navigateByUrl(`/recipes/${this.initRecette.id}`);
       this.recette = null;
       this.ingredientToShow = [];
     });
