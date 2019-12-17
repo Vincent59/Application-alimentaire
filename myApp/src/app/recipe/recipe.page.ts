@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecetteWithIngredients, DatabaseService } from '../services/database.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-recipe',
@@ -12,7 +12,7 @@ export class RecipePage implements OnInit {
 
   recette: RecetteWithIngredients = null;
 
-  constructor(private route : ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController) { }
+  constructor(private route : ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController, public alertController: AlertController) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -29,8 +29,31 @@ export class RecipePage implements OnInit {
     });
   }
 
-  deleteRecette(recetteId) {
-    this.db.deleteRecette(recetteId).then(async () => {
+  async presentAlertConfirmDelete() {
+    const alert = await this.alertController.create({
+      header: `Confirmer`,
+      message: `Êtes-vous sûr de vouloir supprimer la recette "<strong>${this.recette.nom}</strong>" ?`,
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.deleteRecette();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  deleteRecette() {
+    this.db.deleteRecette(this.recette.id).then(async () => {
       let toast = await this.toast.create({
         message: 'Recette supprimée',
         duration: 3000
@@ -40,8 +63,8 @@ export class RecipePage implements OnInit {
     });
   }
 
-  goToUpdate(recetteId) {
-    this.router.navigateByUrl(`/update-recipe/${recetteId}`);
+  goToUpdate() {
+    this.router.navigateByUrl(`/update-recipe/${this.recette.id}`);
   }
 
 }
