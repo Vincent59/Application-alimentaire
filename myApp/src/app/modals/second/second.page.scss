@@ -60,6 +60,9 @@
 }
 
 ion-button {
+    position: relative;
+    bottom: 1%;
+    left: 5%;
     width: 90%;
     height: 60px;
     --background: #5ac380;

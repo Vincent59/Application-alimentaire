@@ -46,11 +46,9 @@ export class CreateReceipePage implements OnInit {
       }
     });
     modal.onWillDismiss().then(dataReturned => {
+      this.ingredientToShow = [];
       if (dataReturned.data.length > 0) {
-        this.ingredientToShow = [];
-
         dataReturned.data.forEach(element => 
-
         this.ingredientToShow.push(element)
 
         );
