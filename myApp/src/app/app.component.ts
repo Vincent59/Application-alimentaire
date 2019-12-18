@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 })
 
 export class AppComponent {
+  rootPage: any;
 
   constructor(
     private platform: Platform,
@@ -49,6 +50,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.backgroundColorByName('black');
       this.splashScreen.hide();
 
       timer(3000).subscribe(() => this.showSplash = false) // <-- hide animation after 3s

@@ -37,6 +37,9 @@ export class UpdateItemPage implements OnInit {
     });
   }
 
+  /**
+   * Update this item
+   */
   updateIngredient() {
     this.db.updateIngredient(this.initIngredient.id, this.ingredient['nom'], this.ingredient['um'])
     .then(async _ => {

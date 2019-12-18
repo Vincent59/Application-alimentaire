@@ -43,6 +43,9 @@ export class ItemsListPage implements OnInit {
     });
   }
 
+  /**
+   * Add the item in database
+   */
   addIngredient() {
     this.db.addIngredient(this.ingredient['nom'], this.ingredient['um'])
     .then(async _ => {
@@ -57,6 +60,10 @@ export class ItemsListPage implements OnInit {
     });
   }
 
+  /**
+   * Go to the item page based on its database ID
+   * @param id id of the item in database
+   */
   goToItemPage(id) {
     this.router.navigateByUrl(`/items/${id}`);
   }

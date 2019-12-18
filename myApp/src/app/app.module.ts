@@ -15,13 +15,14 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { SecondPage } from './modals/second/second.page';
+import { SecondPageModule } from './modals/second/second.module';
 
 
 @NgModule({
-  declarations: [AppComponent, SecondPage],
+  declarations: [AppComponent],
   entryComponents: [SecondPage],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, 
-    HttpClientModule],
+    HttpClientModule, SecondPageModule],
   providers: [
     StatusBar,
     SplashScreen,

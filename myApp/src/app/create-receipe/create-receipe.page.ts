@@ -37,6 +37,9 @@ export class CreateReceipePage implements OnInit {
     });
   }
 
+  /**
+   * Opens a modal to select items to add to the recipe
+   */
   async openModalWithData() {
     const modal = await this.modalController.create({
       component: SecondPage,
@@ -61,6 +64,9 @@ export class CreateReceipePage implements OnInit {
     })
   }
 
+  /**
+   * Add the recipe in database, using ingredientToShow as the itemList
+   */
   addRecette() {
     for(let i=0 ; i < this.ingredientToShow.length; i++){
   		this.ingredientToShow[i].qte = this.qtes[i];

@@ -29,6 +29,11 @@ export class RecipePage implements OnInit {
     });
   }
 
+  /**
+   * Opens a confirm alert to delete or not this recipe :
+   ** Annuler - do nothing
+   ** Ok - delete the recipe
+   */
   async presentAlertConfirmDelete() {
     const alert = await this.alertController.create({
       header: `Confirmer`,
@@ -52,6 +57,9 @@ export class RecipePage implements OnInit {
     await alert.present();
   }
 
+  /**
+   * Delete the recipe
+   */
   deleteRecette() {
     this.db.deleteRecette(this.recette.id).then(async () => {
       let toast = await this.toast.create({
@@ -63,6 +71,9 @@ export class RecipePage implements OnInit {
     });
   }
 
+  /**
+   * Go to the update page of this recipe
+   */
   goToUpdate() {
     this.router.navigateByUrl(`/update-recipe/${this.recette.id}`);
   }

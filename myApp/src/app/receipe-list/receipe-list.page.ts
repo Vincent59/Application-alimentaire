@@ -48,6 +48,10 @@ export class ReceipeListPage implements OnInit {
     });
   }
 
+  /** 
+   * Go to the recipe page based on its database ID
+   * @param id id of the recipe in database
+   */
   goToRecipePage(id) {
     this.router.navigateByUrl(`/recipes/${id}`);
   }

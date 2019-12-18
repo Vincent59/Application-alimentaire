@@ -93,6 +93,9 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Fill the database based on a .sql file in assets/database (seed.sql)
+   */
   seedDatabase() {
     this.http.get('assets/database/test.sql', { responseType: 'text'})
     .subscribe(sql => {
@@ -106,6 +109,11 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Load all the items of the database
+   * (recettes, ingredients, recette_ingredients, ums)
+   * in the service
+   */
   loadDB(){
     this.loadRecettes();
     this.loadIngredients();
@@ -113,20 +121,35 @@ export class DatabaseService {
     this.loadUms();
   }
   
+  /**
+   * Check if database is ready
+   * @returns dbReady as observable
+   */
   getDatabaseState() {
     return this.dbReady.asObservable();
   }
 
+  /**
+   * Get the database id of the last inserted row in the database
+   */
   getLastRowId(): Promise<any> {
     return this.database.executeSql('SELECT last_insert_rowid() as lastInsertId;', []).then(data => {
       return data.rows.item(0).lastInsertId;
     })
   }
  
+  /**
+   * Get all the recipes
+   * @returns Observable<Recette[]>
+   */
   getRecettes(): Observable<Recette[]> {
     return this.recettes.asObservable();
   }
 
+  /**
+   * Load all the recipes of the database
+   * in the service
+   */
   loadRecettes() {
     return this.database.executeSql('select recette.id, recette.nom, recette.source, recette.page, recette.nb_pers, count(ingredients.nom) as nb_ingredients from recette LEFT JOIN recette_ingredients ON recette.id = recette_ingredients.id_recette LEFT JOIN ingredients ON recette_ingredients.id_ingredient = ingredients.id group by (recette.id);'
     , []).then(data => {
@@ -148,6 +171,14 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Add a recipe in database then add all the items in itemList in table recette_ingredients
+   * @param nom name of the recipe
+   * @param nbPers number of persons
+   * @param source source
+   * @param page page
+   * @param itemList list of items in the recipe with their quantities
+   */
   addRecette(nom, nbPers, source, page, itemList) {
     let data = [nom, nbPers, source, page];
     let recetteId = null;
@@ -165,6 +196,11 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Get a recipe using its ID in database
+   * @param id id of the recipe in database
+   * @returns Promise<RecetteWithIngredients> - recipe with all its informations
+   */
   getRecette(id): Promise<RecetteWithIngredients> {
     return this.database.executeSql('select recette.id as id_recette, ingredients.id as id_ingredient, recette.nom as recette, recette.nb_pers, recette.source, recette.page, ingredients.nom as ingredient, qte_ingredient, um.nom as unite FROM recette LEFT JOIN recette_ingredients ON recette.id = recette_ingredients.id_recette LEFT JOIN ingredients ON recette_ingredients.id_ingredient = ingredients.id LEFT JOIN um ON um.id = ingredients.um_id WHERE recette.id= ? ;', [id]).then(data => {
       let ingqtes: IngredientWithQte[] = [];
@@ -190,12 +226,25 @@ export class DatabaseService {
     });
   }
  
+  /**
+   * Delete a recipe using its ID in database
+   * @param id id of the recipe in database
+   */
   deleteRecette(id) {
     return this.database.executeSql('DELETE FROM recette WHERE id = ?', [id]).then(_ => {
       this.loadDB();
     });
   }
- 
+
+  /**
+   * Update a recipe in database
+   * @param id id of the recipe in database
+   * @param nom updated name 
+   * @param nbPers updated number of persons
+   * @param source updated source
+   * @param page updated page
+   * @param itemList updated list of items with their quantities
+   */
   updateRecette(id, nom, nbPers, source, page, itemList) {
     this.deleteRecette_IngredientsByRecette(id).then(_ => {
       for(let item of itemList) {
@@ -208,10 +257,18 @@ export class DatabaseService {
     })
   }
 
+  /**
+   * Get all the measure units
+   * @returns Observable<Um[]>
+   */
   getUms(): Observable<Um[]> {
     return this.ums.asObservable();
   }
 
+  /**
+   * Load all the measure units of the database
+   * in the service
+   */
   loadUms() {
     let query = 'SELECT * from um';
     return this.database.executeSql(query, []).then(data => {
@@ -229,10 +286,18 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Get all the items 
+   * @returns Observable<Um[]>
+   */
   getIngredients(): Observable<Ingredient[]> {
     return this.ingredients.asObservable();
   }
 
+  /**
+   * Load all the items of the database
+   * in the service
+   */
   loadIngredients() {
     let query = 'SELECT ingredients.id, ingredients.nom, ingredients.um_id, um.nom AS unite, count(recette.id) as nb_recettes FROM ingredients LEFT JOIN um ON um.id = ingredients.um_id LEFT JOIN recette_ingredients ON ingredients.id = recette_ingredients.id_ingredient LEFT JOIN recette ON recette_ingredients.id_recette = recette.id group by (ingredients.id);';
     return this.database.executeSql(query, []).then(data => {
@@ -253,6 +318,11 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Add an item in database
+   * @param nom name of the item
+   * @param um_id measure unit of the item
+   */
   addIngredient(nom, um_id) {
     let data = [nom, um_id];
     return this.database.executeSql('INSERT INTO ingredients (nom, um_id) VALUES (?, ?)', data).then(data => {
@@ -260,6 +330,11 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Get an item using its ID in database
+   * @param id id of the item in database
+   * @returns Promise<IngredientWithRecettes> - item with all its informations
+   */
   getIngredient(id): Promise<IngredientWithRecettes> {
     return this.database.executeSql('SELECT ingredients.id, ingredients.nom, ingredients.um_id, um.nom AS unite, recette.id as id_recette, recette.nom as nom_recette FROM ingredients LEFT JOIN um ON um.id = ingredients.um_id LEFT join recette_ingredients ON ingredients.id = recette_ingredients.id_ingredient LEFT join recette ON recette_ingredients.id_recette = recette.id WHERE ingredients.id = ?', [id]).then(data => {
       let recettes: any[] = [];
@@ -282,12 +357,22 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Delete an item using its ID in database
+   * @param id id of the item in database
+   */
   deleteIngredient(id) {
     return this.database.executeSql('DELETE FROM ingredients WHERE id = ?', [id]).then(_ => {
       this.loadDB();
     });
   }
 
+  /**
+   * Update an item in database
+   * @param ingredientId id of the item in database
+   * @param nom updated name
+   * @param um_id updated measure unit
+   */
   updateIngredient(ingredientId, nom, um_id) {
     let data = [nom, um_id];
     return this.database.executeSql(`UPDATE ingredients SET nom = ?, um_id = ? WHERE id =  ${ingredientId};`, data).then(data => {
@@ -295,10 +380,19 @@ export class DatabaseService {
     })
   }
 
+  /**
+   ** Get all the recette_ingredient links (from recette_ingredients table)
+   * (a recette_ingredient link is based on : id_recette, id_ingredient and qte)
+   * @returns Observable<Recette_ingredients[]>
+   */
   getRecette_ingredients(): Observable<Recette_ingredients[]> {
     return this.recette_ingredients.asObservable();
   }
 
+  /**
+   * Load all the recette_ingredient links of the database
+   * in the service
+   */
   loadRecette_Ingredients() {
     let query = 'select recette.id as id_recette, ingredients.id as id_ingredient, ingredients.nom as ingredient, qte_ingredient, um.nom as unite from recette join recette_ingredients ON recette.id = recette_ingredients.id_recette join ingredients ON recette_ingredients.id_ingredient = ingredients.id JOIN um ON um.id = ingredients.um_id;';
     return this.database.executeSql(query, []).then(data => {
@@ -319,6 +413,12 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Add a recette_ingredient link in database
+   * @param recette id of the recipe
+   * @param ingredient id of the item
+   * @param qte quantity of the item in the recipe
+   */
   addRecette_Ingredients(recette, ingredient, qte) {
     let data = [recette, ingredient, qte];
     return this.database.executeSql('INSERT INTO recette_ingredients (id_recette, id_ingredient, qte_ingredient) VALUES (?, ?, ?)', data).then(data => {
@@ -326,6 +426,10 @@ export class DatabaseService {
     });
   }
 
+  /**
+   * Delete all the recette_ingredient links associated with a recipe in database
+   * @param recetteId id of the recipe
+   */
   deleteRecette_IngredientsByRecette(recetteId){
     return this.database.executeSql(`DELETE FROM recette_ingredients WHERE id_recette = ?;`, [recetteId]).then(_ => {
       this.loadDB();

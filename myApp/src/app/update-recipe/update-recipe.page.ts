@@ -49,6 +49,9 @@ export class UpdateRecipePage implements OnInit {
     });
   }
 
+  /**
+   * Opens a modal to modify items of the recipe
+   */
   async openModalWithData() {
     const modal = await this.modalController.create({
       component: SecondPage,
@@ -73,6 +76,9 @@ export class UpdateRecipePage implements OnInit {
     })
   }
 
+  /**
+   * Update this recipe, using ingredientToShow as itemList
+   */
   updateRecette() {
     this.db.updateRecette(this.initRecette.id, this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingredientToShow)
     .then(async _ => {
