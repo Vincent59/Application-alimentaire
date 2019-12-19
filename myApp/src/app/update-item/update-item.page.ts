@@ -3,7 +3,11 @@ import { ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatabaseService, Um } from '../services/database.service';
 import { IngredientWithRecettes } from '../services/database.service';
-import { IngObject } from '../items-list/items-list.page';
+
+export interface IngObject {
+  nom: string,
+  um: number
+}
 
 @Component({
   selector: 'app-update-item',

@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService, Ingredient, Um } from '../services/database.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-export interface IngObject {
-  nom: string,
-  um: number
-}
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-items-list',
@@ -15,17 +11,19 @@ export interface IngObject {
 })
 export class ItemsListPage implements OnInit {
 
+  public itemForm : FormGroup;
+
   ingredients: Ingredient[] = [];
   ums: Um[] = [];
 
-  ingredient: IngObject = {
-    nom: '',
-    um: null
-  };
-
   selectedView = 'items-list';
 
-  constructor(private db: DatabaseService, private router: Router, private toast: ToastController) { }
+  constructor(private db: DatabaseService, private router: Router, private toast: ToastController, private formBuilder: FormBuilder) {
+    this.itemForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      um: ['', Validators.required],
+    });
+   }
 
   ngOnInit() {
     this.db.getDatabaseState().subscribe(rdy => {
@@ -47,9 +45,9 @@ export class ItemsListPage implements OnInit {
    * Add the item in database
    */
   addIngredient() {
-    this.db.addIngredient(this.ingredient['nom'], this.ingredient['um'])
+    this.db.addIngredient(this.itemForm.value.nom, this.itemForm.value.um)
     .then(async _ => {
-      this.ingredient = {nom:'', um: null};
+      this.itemForm.reset();
       let toast = await this.toast.create({
         message: 'Ingrédient ajouté',
         duration: 3000

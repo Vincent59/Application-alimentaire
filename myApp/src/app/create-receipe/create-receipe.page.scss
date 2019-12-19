@@ -65,3 +65,13 @@
         }
     }
 }
+
+  input.invalid {
+    border: 1px solid #ea6153;
+    border-radius: 5px;
+  }
+
+  input.valid {
+    border: 1px solid lightgreen;
+    border-radius: 5px;
+  }

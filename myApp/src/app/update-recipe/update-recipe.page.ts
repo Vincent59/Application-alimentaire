@@ -3,7 +3,13 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SecondPage } from '../modals/second/second.page';
 import { DatabaseService, Ingredient, RecetteWithIngredients } from '../services/database.service';
-import { RecipeObject } from '../create-receipe/create-receipe.page';
+
+export interface RecipeObject {
+  nom: string,
+  nbPers: number,
+  source: string,
+  page: string
+}
 
 @Component({
   selector: 'app-update-recipe',
