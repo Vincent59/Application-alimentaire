@@ -25,12 +25,13 @@ export class AppComponent {
     private statusBar: StatusBar,
     private http: HttpClient,
   ) {
+    this.initializeApp();
   }
 
   ngOnInit(){
   }
 
-  showSplash = false; // <-- show animation
+  showSplash = true; // <-- show animation
 
   initializeApp() {
     this.platform.ready().then(() => {
