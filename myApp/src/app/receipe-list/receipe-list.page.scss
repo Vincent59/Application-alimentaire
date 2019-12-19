@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+    0% {
+        position: absolute;
+        --background: #4fce83;
+        right: -100px;
+        zoom: 1;
+    }
+    25%{
+        zoom: 1.2;
+    }
+    50% {
+        position: absolute;
+        --background: #4fce83;
+        right: -50px;
+        zoom: 1.5;
+    }
+    75% {
+        zoom: 1.2;
+    }
+    100% {
+        position: absolute;
+        --background: #4fce83;
+        right: 0px;
+        zoom: 1;
+    }
+}
+
+
 .toolbar-title-default {
     --background: none;
     background-image: url("/assets/background3.jpg");
@@ -31,6 +59,7 @@
         padding: 0 15px 0 15px;
         border: 2px solid #d6d6d6;
         border-top: 0;
+        height: 190px;
 
         .receipeName {
             font-family: 'Lobster', cursive;
@@ -69,7 +98,48 @@
                 }*/
             }
         }
-    }
+    }    
+}
 
+ion-item {
+    position: relative;
+
+    ion-button {
+        z-index: 10;
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        width: 40%;
+        margin: 0 auto;
+        height: 40px;
+        font-size: 14px;
+
+        .button-inner {
+            --background-color: #9a9a9a;
+            color: #ffffff;
+        }
+    }
+}
+
+ion-fab {
+
+    #exportReady {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        right: 0;
+        --background: #4fce83;
+        animation: fadeIn .2s linear;
+
+        ion-icon {
+            color: #ffffff;
+        }
+    }
     
+    #exportBtn {
+        position: absolute;
+        right: -100px;
+        --background: #4fce83;
+    }
 }

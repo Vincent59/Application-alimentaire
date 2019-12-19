@@ -21,7 +21,7 @@ export class CreateReceipePage implements OnInit {
 
   public ingredients: Ingredient[] = [];
 
-  recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};;
+  recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};
   qtes = [];
 
   public ingredientToShow = [];

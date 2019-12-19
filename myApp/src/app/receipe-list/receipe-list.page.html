@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" *ngFor="let recette of recettes" (click) = "goToRecipePage(recette.id)">
-    <div class="receipeBloc">
+  <ion-item lines="none" *ngFor="let recette of recettes">
+    <div class="receipeBloc" (click) = "goToRecipePage(recette.id)">
         <div class="receipePic" >
           <img src='assets/recette_1.jpg'>
         </div>
@@ -17,7 +17,14 @@
           <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
         </div>
     </div>
-</ion-item>
+    <ion-button class="receipeSelect" [attr.data-info]="recette.id" (click)="onReceipeClick($event)">Séléctionner</ion-button>
+  </ion-item>
+
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+    <ion-fab-button id="exportBtn" (click)="createPdf()">
+      <ion-icon name="cloud-download"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <ion-footer>
@@ -27,7 +34,7 @@
       </ion-item>
 
       <ion-item class="footerRight" routerLink="/search-part" lines="none">
-          <ion-icon name="search"></ion-icon>
+        <ion-icon name="search"></ion-icon>
       </ion-item>
   </ion-toolbar>
 </ion-footer>

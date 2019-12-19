@@ -15,6 +15,10 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx'; 
+import { File } from '@ionic-native/file/ngx'; 
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +30,11 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SQLite,
-    SQLitePorter
+    SQLitePorter,
+    FileOpener,
+    FileTransfer,
+    FileTransferObject,
+    File
   ],
   bootstrap: [AppComponent]
 })
