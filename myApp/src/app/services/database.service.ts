@@ -231,9 +231,11 @@ export class DatabaseService {
    * @param id id of the recipe in database
    */
   deleteRecette(id) {
-    return this.database.executeSql('DELETE FROM recette WHERE id = ?', [id]).then(_ => {
-      this.loadDB();
-    });
+    return this.deleteRecette_IngredientsByRecette(id).then(_ => {
+      this.database.executeSql('DELETE FROM recette WHERE id = ?', [id]).then(_ => {
+        this.loadDB();
+      });
+    })
   }
 
   /**

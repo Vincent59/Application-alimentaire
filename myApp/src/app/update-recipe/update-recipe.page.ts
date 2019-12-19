@@ -3,6 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SecondPage } from '../modals/second/second.page';
 import { DatabaseService, Ingredient, RecetteWithIngredients } from '../services/database.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export interface RecipeObject {
   nom: string,
@@ -18,12 +19,20 @@ export interface RecipeObject {
 })
 export class UpdateRecipePage implements OnInit {
 
+  public recetteForm : FormGroup;
+
   public initRecette: RecetteWithIngredients = null;
   public ingredients: Ingredient[] = [];
   public ingredientToShow = [];
-  public recette: RecipeObject = {nom: '', nbPers: null, source: '', page: ''};
 
-  constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router, private route : ActivatedRoute) { }
+  constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router, private route : ActivatedRoute, private formBuilder: FormBuilder) {
+    this.recetteForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      nbPers: ['', Validators.required],
+      source: ['', Validators.required],
+      page: ['', Validators.required]
+    });
+   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -31,10 +40,10 @@ export class UpdateRecipePage implements OnInit {
  
       this.db.getRecette(recetteId).then(data => {
         this.initRecette = data;
-        this.recette['nom'] = this.initRecette.nom;
-        this.recette['nbPers'] = this.initRecette.nbPers;
-        this.recette['source'] = this.initRecette.source;
-        this.recette['page'] = this.initRecette.page;
+        this.recetteForm.controls['nom'].setValue(this.initRecette.nom);
+        this.recetteForm.controls['nbPers'].setValue(this.initRecette.nbPers);
+        this.recetteForm.controls['source'].setValue(this.initRecette.source);
+        this.recetteForm.controls['page'].setValue(this.initRecette.page);
         for(let ing of this.initRecette.ingqtes){
           this.ingredientToShow.push({
             "id": ing.id,
@@ -82,11 +91,35 @@ export class UpdateRecipePage implements OnInit {
     })
   }
 
+  isQteValid(qte){
+    if(qte == 0 || qte == '' || qte == null){
+      (<HTMLLIElement>event.target).classList.remove("valid");
+      (<HTMLLIElement>event.target).className += " invalid";
+    } else {
+      (<HTMLLIElement>event.target).classList.remove("invalid");
+      (<HTMLLIElement>event.target).className += " valid";
+      
+    }
+  }
+
+  checkQtes(){
+    let bool = false;
+    if(this.ingredientToShow.length == 0){
+      bool = true;
+    }
+    for (let item of this.ingredientToShow) {
+      if(item.qte == 0 || item.qte == '' || item.qte == null) {
+        bool = true;
+      }
+    }
+    return bool;
+  }
+
   /**
    * Update this recipe, using ingredientToShow as itemList
    */
   updateRecette() {
-    this.db.updateRecette(this.initRecette.id, this.recette['nom'], this.recette['nbPers'], this.recette['source'], this.recette['page'], this.ingredientToShow)
+    this.db.updateRecette(this.initRecette.id, this.recetteForm.value.nom, this.recetteForm.value.nbPers, this.recetteForm.value.source, this.recetteForm.value.page, this.ingredientToShow)
     .then(async _ => {
       let toast = await this.toast.create({
         message: 'Recette mise à jour',
@@ -94,7 +127,7 @@ export class UpdateRecipePage implements OnInit {
       });
       toast.present();
       this.router.navigateByUrl(`/recipes/${this.initRecette.id}`);
-      this.recette = null;
+      this.recetteForm.reset();
       this.ingredientToShow = [];
     });
   }

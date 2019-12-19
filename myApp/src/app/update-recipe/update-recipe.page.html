@@ -5,24 +5,24 @@
 </ion-header>
 
 <ion-content>
-    
+    <form [formGroup]="recetteForm" (ngSubmit)="updateRecette()">
           <ion-item>
               <ion-label>Nom de la recette :</ion-label>
-            <ion-input [(ngModel)]="recette.nom" placeholder="Nom de recette"></ion-input>
+            <ion-input formControlName="nom" placeholder="Nom de recette"></ion-input>
           </ion-item>
 
           <ion-item>
               <ion-label>Nombre de personnes :</ion-label>
-            <ion-input [(ngModel)]="recette.nbPers" placeholder="Nombre de personnes"></ion-input>
+            <ion-input formControlName="nbPers" placeholder="Nombre de personnes"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Source :</ion-label>
-            <ion-input [(ngModel)]="recette.source" placeholder="Source"></ion-input>
+            <ion-input formControlName="source" placeholder="Source"></ion-input>
           </ion-item>
 
           <ion-item>
               <ion-label>Page :</ion-label>
-            <ion-input [(ngModel)]="recette.page" placeholder="Page"></ion-input>
+            <ion-input formControlName="page" placeholder="Page"></ion-input>
           </ion-item>
 
             <ion-item class="addBloc" lines="none">
@@ -34,14 +34,14 @@
 
     <ion-text>
       <ul class="ingredientSelected">
-        <li *ngFor="let item of ingredientToShow; let i = index">{{ item.name }} <input placeholder="10" [(ngModel)]="item.qte"> {{ item.unite }}<span *ngIf="item.unite !== 'CàC' && item.unite !== 'CàS'">(s)</span></li>
+        <li *ngFor="let item of ingredientToShow; let i = index">{{ item.name }} <input placeholder="10" type="number" (focusout)="isQteValid(item.qte)" [(ngModel)]="item.qte" [ngModelOptions]="{standalone: true}"> {{ item.unite }}<span *ngIf="item.unite !== 'CàC' && item.unite !== 'CàS'">(s)</span></li>
       </ul>
     </ion-text>
 
           <ion-item class="addBloc" lines="none">
-              <ion-button class="btnSave" (click)="updateRecette()">Enregistrer les modifications</ion-button>
+              <ion-button class="btnSave"  type="submit" [disabled]="!recetteForm.valid || checkQtes()">Enregistrer les modifications</ion-button>
           </ion-item>     
-
+        </form>
 </ion-content>
 
 <ion-footer>

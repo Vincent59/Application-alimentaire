@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatabaseService, Um } from '../services/database.service';
 import { IngredientWithRecettes } from '../services/database.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 export interface IngObject {
   nom: string,
@@ -15,11 +16,16 @@ export interface IngObject {
   styleUrls: ['./update-item.page.scss'],
 })
 export class UpdateItemPage implements OnInit {
+  public itemForm : FormGroup;
   public ums: Um[] = [];
   public initIngredient: IngredientWithRecettes = null;
-  public ingredient: IngObject = {nom: '', um: null};
 
-  constructor(private route : ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController) { }
+  constructor(private route : ActivatedRoute, private db: DatabaseService, private router: Router, private toast: ToastController, private formBuilder: FormBuilder) {
+    this.itemForm = this.formBuilder.group({
+      nom: ['', Validators.required],
+      um: ['', Validators.required],
+    });
+   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -27,8 +33,8 @@ export class UpdateItemPage implements OnInit {
  
       this.db.getIngredient(ingredientId).then(data => {
         this.initIngredient = data;
-        this.ingredient['nom'] = this.initIngredient.nom;
-        this.ingredient['um'] = this.initIngredient.um_id;
+        this.itemForm.controls['nom'].setValue(this.initIngredient.nom);
+        this.itemForm.controls['um'].setValue(this.initIngredient.um_id);
       });
     });
 
@@ -45,15 +51,15 @@ export class UpdateItemPage implements OnInit {
    * Update this item
    */
   updateIngredient() {
-    this.db.updateIngredient(this.initIngredient.id, this.ingredient['nom'], this.ingredient['um'])
+    this.db.updateIngredient(this.initIngredient.id, this.itemForm.value.nom, this.itemForm.value.um)
     .then(async _ => {
+      this.itemForm.reset();
       let toast = await this.toast.create({
         message: 'Ingrédient mis à jour',
         duration: 3000
       });
       toast.present();
       this.router.navigateByUrl(`/items/${this.initIngredient.id}`);
-      this.ingredient = null;
     });
   }
 
