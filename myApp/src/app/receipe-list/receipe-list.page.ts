@@ -76,8 +76,6 @@ export class ReceipeListPage implements OnInit {
             "Nombre de personne": data.nbPers,
             "Source": data.source,
             "Ingrédients": ingredientInfo});
-
-            console.log(this.listCourse);
         });
 
       } else {
@@ -85,7 +83,6 @@ export class ReceipeListPage implements OnInit {
         let newIndex = index - 1;
 
         this.db.getRecette((<HTMLButtonElement>event.target).getAttribute('data-info')).then(data => {
-          console.log(data.id);
           for(let i=0; i < this.listCourse.length; i++) {
             if(this.listCourse[i].id === data.id) {
               delete this.listCourse[i];
@@ -93,8 +90,6 @@ export class ReceipeListPage implements OnInit {
             }
           }
         })
-
-        console.log(this.listCourse);
 
         if(this.listCourse.length === 0) {
           if(document.getElementById("exportReady")){
@@ -197,15 +192,16 @@ export class ReceipeListPage implements OnInit {
           this.ingredients = ingredients; 
         }); 
         this.db.getRecette_ingredients().subscribe(recette_ingredients => { 
-          this.recette_ingredients = recette_ingredients; 
-          for(let recette_ingredient of recette_ingredients){ 
-            console.log("recette_ingredient : " + recette_ingredient.idRecette + ", " + recette_ingredient.idIngredient + ", " + recette_ingredient.nomIngredient + ", " + recette_ingredient.qteIngredient + ", " + recette_ingredient.unite); 
-          } 
+          this.recette_ingredients = recette_ingredients;
         }) 
       }
     }); 
   } 
 
+  /**  
+   * Go to the recipe page based on its database ID 
+   * @param id id of the recipe in database 
+   */ 
   goToRecipePage(id) { 
     this.router.navigateByUrl(`/recipes/${id}`); 
   } 
