@@ -27,15 +27,17 @@
         </div>
 
         <div *ngSwitchCase="'add-item'">
-            <ion-item>
-              <ion-input [(ngModel)]="ingredient.nom" placeholder="Nom de l'ingrédient"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-select [(ngModel)]="ingredient.um" placeholder="Unité de l'ingrédient">
-                <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-button expand="block" (click)="addIngredient()">Ajouter l'ingrédient</ion-button>
+            <form [formGroup]="itemForm" (ngSubmit)="addIngredient()">
+              <ion-item>
+                <ion-input  formControlName="nom" placeholder="Nom de l'ingrédient"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-select  formControlName="um" placeholder="Unité de l'ingrédient">
+                  <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button expand="block" type="submit" [disabled]="!itemForm.valid">Ajouter l'ingrédient</ion-button>
+            </form>
           </div>
         </div>
 

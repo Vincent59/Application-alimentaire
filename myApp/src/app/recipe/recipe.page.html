@@ -25,10 +25,10 @@
               </div>
               <ul>
                   <li>
-                        <ion-icon name="trash" (click)="deleteRecette(recette.id)"></ion-icon>
+                        <ion-icon name="trash" (click)="presentAlertConfirmDelete()"></ion-icon>
                 </li>
                   <li>
-                      <ion-icon name="create"></ion-icon>
+                      <ion-icon name="create" (click)="goToUpdate()"></ion-icon>
                   </li>
                 </ul>
             </div>

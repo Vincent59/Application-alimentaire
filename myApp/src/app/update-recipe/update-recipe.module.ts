@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CreateReceipePageRoutingModule } from './create-receipe-routing.module';
+import { UpdateRecipePageRoutingModule } from './update-recipe-routing.module';
 
-import { CreateReceipePage } from './create-receipe.page';
+import { UpdateRecipePage } from './update-recipe.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { CreateReceipePage } from './create-receipe.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CreateReceipePageRoutingModule,
+    UpdateRecipePageRoutingModule
   ],
-  declarations: [CreateReceipePage]
+  declarations: [UpdateRecipePage]
 })
-export class CreateReceipePageModule {}
+export class UpdateRecipePageModule {}

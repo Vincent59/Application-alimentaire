@@ -1,32 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Créer une recette</ion-title>
+    <ion-title>Modifier une recette</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="recetteForm" (ngSubmit)="addRecette()">
+    <form [formGroup]="recetteForm" (ngSubmit)="updateRecette()">
           <ion-item>
-            <ion-input placeholder="Nom de recette" formControlName="nom"></ion-input>
+              <ion-label>Nom de la recette :</ion-label>
+            <ion-input formControlName="nom" placeholder="Nom de recette"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input placeholder="Nombre de personnes" type="number" formControlName="nbPers"></ion-input>
+              <ion-label>Nombre de personnes :</ion-label>
+            <ion-input formControlName="nbPers" placeholder="Nombre de personnes"></ion-input>
           </ion-item>
           <ion-item>
-
-            <ion-input placeholder="Source" formControlName="source"></ion-input>
+              <ion-label>Source :</ion-label>
+            <ion-input formControlName="source" placeholder="Source"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input placeholder="Page" formControlName="page"></ion-input>
+              <ion-label>Page :</ion-label>
+            <ion-input formControlName="page" placeholder="Page"></ion-input>
           </ion-item>
 
             <ion-item class="addBloc" lines="none">
-                <ion-button class="btnAdd" (click)="openModalWithData()">Ajouter des ingrédients</ion-button>
+                <ion-button class="btnAdd" (click)="openModalWithData()">Modifier les ingrédients</ion-button>
             </ion-item>
     <ion-item class="addBloc" lines="none">
-      <ion-label>{{ ingredientToShow?.length }} ingrédient(s) ajouté(s)</ion-label>
+      <ion-label>{{ ingredientToShow?.length }} ingrédient(s)</ion-label>
     </ion-item>
 
     <ion-text>
@@ -36,9 +39,9 @@
     </ion-text>
 
           <ion-item class="addBloc" lines="none">
-              <ion-button class="btnSave" type="submit" [disabled]="!recetteForm.valid || checkQtes()">Enregistrer</ion-button>
+              <ion-button class="btnSave"  type="submit" [disabled]="!recetteForm.valid || checkQtes()">Enregistrer les modifications</ion-button>
           </ion-item>     
-          </form>
+        </form>
 </ion-content>
 
 <ion-footer>

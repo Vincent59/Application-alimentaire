@@ -27,10 +27,17 @@ export class SearchPartPage implements OnInit {
     });
   }
 
+  /**
+   * Shows all the recipes
+   */
   initializeRecettes(){ 
     this.recettesToShow = this.recettes;
   }
 
+  /**
+   * Filter recipes
+   * @param ev 
+   */
     getRecettes(ev: any) {
       // Reset items back to all of the items
       this.initializeRecettes();
@@ -46,6 +53,10 @@ export class SearchPartPage implements OnInit {
       }
   }
 
+  /** 
+   * Go to the recipe page based on its database ID
+   * @param id id of the recipe in database
+   */
   goToRecipePage(id) {
     this.router.navigateByUrl(`/recipes/${id}`);
   }

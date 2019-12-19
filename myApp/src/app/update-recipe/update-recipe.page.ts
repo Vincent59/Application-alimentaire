@@ -1,25 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SecondPage } from '../modals/second/second.page';
-import { DatabaseService, Ingredient } from '../services/database.service';
+import { DatabaseService, Ingredient, RecetteWithIngredients } from '../services/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-create-receipe',
-  templateUrl: './create-receipe.page.html',
-  styleUrls: ['./create-receipe.page.scss'],
-})
+export interface RecipeObject {
+  nom: string,
+  nbPers: number,
+  source: string,
+  page: string
+}
 
-export class CreateReceipePage implements OnInit {
+@Component({
+  selector: 'app-update-recipe',
+  templateUrl: './update-recipe.page.html',
+  styleUrls: ['./update-recipe.page.scss'],
+})
+export class UpdateRecipePage implements OnInit {
 
   public recetteForm : FormGroup;
 
+  public initRecette: RecetteWithIngredients = null;
   public ingredients: Ingredient[] = [];
-  public qtes = [];
   public ingredientToShow = [];
 
-  constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private modalController: ModalController, private db: DatabaseService, private toast: ToastController, private router: Router, private route : ActivatedRoute, private formBuilder: FormBuilder) {
     this.recetteForm = this.formBuilder.group({
       nom: ['', Validators.required],
       nbPers: ['', Validators.required],
@@ -29,6 +35,26 @@ export class CreateReceipePage implements OnInit {
    }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      let recetteId = params.get('id');
+ 
+      this.db.getRecette(recetteId).then(data => {
+        this.initRecette = data;
+        this.recetteForm.controls['nom'].setValue(this.initRecette.nom);
+        this.recetteForm.controls['nbPers'].setValue(this.initRecette.nbPers);
+        this.recetteForm.controls['source'].setValue(this.initRecette.source);
+        this.recetteForm.controls['page'].setValue(this.initRecette.page);
+        for(let ing of this.initRecette.ingqtes){
+          this.ingredientToShow.push({
+            "id": ing.id,
+            "name": ing.nom,
+            "unite": ing.unite,
+            "qte": ing.qte
+          })
+        }
+      });
+    });
+
     this.db.getDatabaseState().subscribe(rdy => {
       if (rdy) {
         this.db.getIngredients().subscribe(ingredients => {
@@ -39,7 +65,7 @@ export class CreateReceipePage implements OnInit {
   }
 
   /**
-   * Opens a modal to select items to add to the recipe
+   * Opens a modal to modify items of the recipe
    */
   async openModalWithData() {
     const modal = await this.modalController.create({
@@ -50,35 +76,19 @@ export class CreateReceipePage implements OnInit {
       }
     });
     modal.onWillDismiss().then(dataReturned => {
-      this.ingredientToShow = [];
       if (dataReturned.data.length > 0) {
+        this.ingredientToShow = [];
+
         dataReturned.data.forEach(element => 
+
         this.ingredientToShow.push(element)
 
         );
-      
-        document.querySelector(".btnAdd").innerHTML = "Modifier les ingrédients";
       }
     });
 
     return await modal.present().then(_ => {
     })
-  }
-
-  /**
-   * Add the recipe in database, using ingredientToShow as the itemList
-   */
-  addRecette() {
-    this.db.addRecette(this.recetteForm.value.nom, this.recetteForm.value.nbPers, this.recetteForm.value.source, this.recetteForm.value.page, this.ingredientToShow)
-    .then(async _ => {
-      let toast = await this.toast.create({
-        message: 'Recette créée',
-        duration: 3000
-      });
-      toast.present();
-      this.router.navigateByUrl('/');
-      this.recetteForm.reset();
-    });
   }
 
   /**
@@ -112,5 +122,22 @@ export class CreateReceipePage implements OnInit {
       }
     }
     return bool;
+  }
+
+  /**
+   * Update this recipe, using ingredientToShow as itemList
+   */
+  updateRecette() {
+    this.db.updateRecette(this.initRecette.id, this.recetteForm.value.nom, this.recetteForm.value.nbPers, this.recetteForm.value.source, this.recetteForm.value.page, this.ingredientToShow)
+    .then(async _ => {
+      let toast = await this.toast.create({
+        message: 'Recette mise à jour',
+        duration: 3000
+      });
+      toast.present();
+      this.router.navigateByUrl(`/recipes/${this.initRecette.id}`);
+      this.recetteForm.reset();
+      this.ingredientToShow = [];
+    });
   }
 }

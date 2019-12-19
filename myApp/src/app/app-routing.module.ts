@@ -33,7 +33,17 @@ const routes: Routes = [
   {
     path: 'items/:id',
     loadChildren: () => import('./item/item.module').then( m => m.ItemPageModule)
+  },
+  {
+    path: 'update-recipe/:id',
+    loadChildren: () => import('./update-recipe/update-recipe.module').then( m => m.UpdateRecipePageModule)
+  },
+  {
+    path: 'update-item/:id',
+    loadChildren: () => import('./update-item/update-item.module').then( m => m.UpdateItemPageModule)
   }
+
+
 
 
 

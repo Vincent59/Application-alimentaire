@@ -19,16 +19,22 @@ export class ItemPage implements OnInit {
       let itemId = params.get('id');
  
       this.db.getIngredient(itemId).then(data => {
-        console.log(data);
         this.item = data;
       });
     });
   }
 
+  /**
+   * Go to the recipe page based on its database ID
+   * @param recetteId id of the recipe in database
+   */
   goToRecipePage(recetteId) {
     this.router.navigateByUrl(`/recipes/${recetteId}`);
   }
 
+  /**
+   * Delete the item if it has no recipes associated
+   */
   async deleteIngredient() {
     if (this.item.recettes.length == 0) {
       this.db.deleteIngredient(this.item.id).then(async () => {
@@ -46,6 +52,13 @@ export class ItemPage implements OnInit {
       });
       toast.present();
     }
+  }
+
+  /**
+   * Go to the update page of this item
+   */
+  goToUpdatePage() {
+    this.router.navigateByUrl(`/update-item/${this.item.id}`);
   }
 
 }

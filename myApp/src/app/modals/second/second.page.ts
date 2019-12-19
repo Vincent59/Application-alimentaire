@@ -21,7 +21,8 @@ export class SecondPage implements OnInit {
         for (let ing of this.ingredients) {
           if (ingToShow.id === ing.id){
             this.isItemActive.push({
-              id: ingToShow.id
+              id: ingToShow.id,
+              qte: ingToShow.qte
             });
           }
         }
@@ -29,6 +30,16 @@ export class SecondPage implements OnInit {
     }
   }
 
+  /**
+   * Close the modal without sending data
+   */
+  closeModalWithoutUpdate() {
+    this.modalController.dismiss(this.choseIngredients);
+  }
+
+  /**
+   * Close the modal and send the selected items
+   */
   closeModal() {
     for(let i=0; i < document.querySelectorAll(".active").length; i++)
     {
@@ -36,10 +47,9 @@ export class SecondPage implements OnInit {
         "id": +document.querySelectorAll(".active")[i].getAttribute("data-id"),
         "name": document.querySelectorAll(".active")[i].innerHTML,
         "unite": document.querySelectorAll(".active")[i].getAttribute("data-unite"),
-        "qte": 0
+        "qte": this.getQteOrNull(+document.querySelectorAll(".active")[i].getAttribute("data-id"))
         });
     }
-
     this.modalController.dismiss(this.choseIngredients);
   }
 
@@ -55,10 +65,24 @@ export class SecondPage implements OnInit {
     }
   }
 
+  /**
+   * Check if the item was selected before
+   * @param id id of the item
+   */
   isActive(id) {
     if(this.isItemActive.find(item => item.id == id)){
       return true;
     } else return false;
+  }
+
+  /**
+   * Get the quantity of the item if it was selected before or '' if not
+   * @param id 
+   */
+  getQteOrNull(id){
+    if(this.isItemActive.find(item => item.id == id)){
+      return this.isItemActive.find(item => item.id == id).qte;
+    } else return '';
   }
 
 }
