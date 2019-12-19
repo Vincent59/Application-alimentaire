@@ -81,6 +81,10 @@ export class CreateReceipePage implements OnInit {
     });
   }
 
+  /**
+   * Change the class of the input if quantity is null (valid - invalid)
+   * @param qte quantity of the item
+   */
   isQteValid(qte){
     if(qte == 0 || qte == '' || qte == null){
       (<HTMLLIElement>event.target).classList.remove("valid");
@@ -92,6 +96,11 @@ export class CreateReceipePage implements OnInit {
     }
   }
 
+  /**
+   * Check if all the quantities are set.
+   * Useful to disable a form submit button.
+   * @returns true if quantities are missing
+   */
   checkQtes(){
     let bool = false;
     if(this.ingredientToShow.length == 0){
