@@ -41,4 +41,4 @@ CREATE TABLE IF NOT EXISTS `recette_ingredients` (
 CREATE INDEX IF NOT EXISTS `fk_Recette_unique_has_Ingrédients_Ingrédients1_idx` ON `recette_ingredients` (`id_ingredient`);
 CREATE INDEX IF NOT EXISTS `fk_Recette_unique_has_Ingrédients_Recette_unique_idx` ON `recette_ingredients` (`id_recette`);
 
-INSERT or IGNORE INTO `recette_ingredients` VALUES (1,1,'1/3'),(1,2,'2'),(1,3,'20'),(1,4,'200'),(1,5,'250'),(1,6,'150'),(1,7,'1'),(1,8,'1'),(2,9,'3'),(2,10,'1/2'),(2,11,'50'),(2,12,'3'),(2,13,'25'),(2,14,'4'),(2,15,'4'),(2,16,'6'),(2,17,'2'),(2,18,'25');
+INSERT or IGNORE INTO `recette_ingredients` VALUES (1,1,0.33),(1,2,2),(1,3,20),(1,4,200),(1,5,250),(1,6,150),(1,7,1),(1,8,1),(2,9,3),(2,10,0.5),(2,11,50),(2,12,3),(2,13,25),(2,14,4),(2,15,4),(2,16,6),(2,17,2),(2,18,25);
