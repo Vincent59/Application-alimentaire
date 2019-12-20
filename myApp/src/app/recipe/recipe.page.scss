@@ -3,4 +3,56 @@ ion-content {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+
+    .receipeInfo {
+
+        .receipeName {
+            font-family: "Lobster", cursive;
+            font-size: 33px;
+            color: #ff6d6d;
+            padding-top: 10px;
+            margin: 0;
+        }
+    
+        .receipePeople, .receipeSource {
+            font-size: 18px;
+            color: #989898;
+            font-weight: 700;
+        }
+    
+        .ings {
+            font-size: 18px;
+            font-weight: 600;
+            padding-top: 15px;
+            margin-bottom: 0;
+            color: #7e75c1;
+        }
+
+        ul {
+            display: inline-flex;
+            list-style: none;
+            margin-bottom: 40px;
+
+            li:first-child {
+                margin: 0px 80px 0 auto;
+                background: rgb(16, 57, 134);
+                padding: 10px 40px;
+                border-radius: 100px;
+
+                ion-icon {
+                    color: #ffffff;
+                }
+            }
+
+            li:nth-child(2) {
+                background: red;
+                padding: 10px 40px;
+                border-radius: 100px;
+
+                ion-icon {
+                    color: #ffffff;
+                }
+            }
+        }
     }
+}

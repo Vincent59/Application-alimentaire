@@ -10,7 +10,7 @@
         <div class="receipeBloc">
             <div class="receipeInfo">
               <p class="receipeName">{{recette.nom}}</p>
-              <p class="receipePeople">{{recette.nbPers}} personne(s)</p>
+              <p class="receipePeople">Pour {{recette.nbPers}} personne(s)</p>
               <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
               <div *ngIf="recette.ingqtes.length > 0">
                 <p class="ings"> Ingrédients : </p>
@@ -24,12 +24,12 @@
                   <p class="ings"> Aucun ingrédient dans cette recette</p>
               </div>
               <ul>
-                  <li>
-                        <ion-icon name="trash" (click)="presentAlertConfirmDelete()"></ion-icon>
+                <li>
+                  <ion-icon name="create" (click)="goToUpdate()"></ion-icon>
                 </li>
-                  <li>
-                      <ion-icon name="create" (click)="goToUpdate()"></ion-icon>
-                  </li>
+                <li>
+                  <ion-icon name="trash" (click)="presentAlertConfirmDelete()"></ion-icon>
+                </li>
                 </ul>
             </div>
         </div>
