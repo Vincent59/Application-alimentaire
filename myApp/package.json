@@ -35,7 +35,7 @@
     "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova": "^9.0.0",
     "cordova-android": "^8.1.0",
-    "cordova-pdf-generator": "file:node_modules/cordova-pdf-generator",
+    "cordova-pdf-generator": "^2.0.8",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-opener2": "^2.2.1",
     "cordova-plugin-file-transfer": "^1.7.1",
@@ -100,7 +100,8 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "cordova-pdf-generator": {}
     },
     "platforms": [
       "android"
