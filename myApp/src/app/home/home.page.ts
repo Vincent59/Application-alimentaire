@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
   async presentConfirm() {
     const alert = await this.alertCtrl.create({
       header: 'Quitter',
-      message: 'Voulez-vous quitter MyApp ?',
+      message: 'Voulez-vous quitter EasyCook ?',
       buttons: [
         {
           text: 'Annuler',
