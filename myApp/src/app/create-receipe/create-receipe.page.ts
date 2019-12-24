@@ -54,7 +54,6 @@ export class CreateReceipePage implements OnInit {
       if (dataReturned.data.length > 0) {
         dataReturned.data.forEach(element => 
         this.ingredientToShow.push(element)
-
         );
       
         document.querySelector(".btnAdd").innerHTML = "Modifier les ingrédients";
@@ -73,7 +72,11 @@ export class CreateReceipePage implements OnInit {
     .then(async _ => {
       let toast = await this.toast.create({
         message: 'Recette créée',
-        duration: 3000
+        duration: 3000,
+        color: "success",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
       this.router.navigateByUrl('/');

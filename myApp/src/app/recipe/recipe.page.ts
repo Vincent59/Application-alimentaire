@@ -64,7 +64,11 @@ export class RecipePage implements OnInit {
     this.db.deleteRecette(this.recette.id).then(async () => {
       let toast = await this.toast.create({
         message: 'Recette supprimée',
-        duration: 3000
+        duration: 3000,
+        color: "success",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
       this.router.navigateByUrl('/receipe-list');

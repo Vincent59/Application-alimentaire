@@ -29,7 +29,6 @@ export class ReceipeListPage implements OnInit {
   recettes: Recette[] = []; 
   ingredients: Ingredient[] = []; 
   recette_ingredients: Recette_ingredients[] = [];
-  private fileTransfer: FileTransferObject;
   public downloadFile;
   public listCourse = []
   letterObj = {
@@ -53,10 +52,8 @@ export class ReceipeListPage implements OnInit {
 
     } 
 
-    onReceipeClick($event) { 
-
-      if ((<HTMLButtonElement>$event.target).innerHTML === "Séléctionner")
-      {
+    onReceipeClick($event) {
+      if ((<HTMLButtonElement>$event.target).innerHTML === "Sélectionner") {
         (<HTMLButtonElement>$event.target).innerHTML = "Retirer";
         if(document.getElementById("exportBtn")){
           document.getElementById("exportBtn").setAttribute("id", "exportReady");
@@ -79,25 +76,27 @@ export class ReceipeListPage implements OnInit {
         });
 
       } else {
-        let index:any = <HTMLButtonElement>$event.target.getAttribute("data-info");
-        let newIndex = index - 1;
-
+        console.log("else");
         this.db.getRecette((<HTMLButtonElement>event.target).getAttribute('data-info')).then(data => {
           for(let i=0; i < this.listCourse.length; i++) {
+            console.log(this.listCourse[i]);
             if(this.listCourse[i].id === data.id) {
+              console.log("delete");
               delete this.listCourse[i];
-              return this.listCourse;
             }
           }
-        })
 
-        if(this.listCourse.length === 0) {
-          if(document.getElementById("exportReady")){
-            document.getElementById("exportReady").setAttribute("id", "exportBtn");
+          console.log(this.listCourse);
+
+          if(this.listCourse.length === 0) {
+            console.log("list course length 0");
+            if(document.getElementById("exportReady")){
+              document.getElementById("exportReady").setAttribute("id", "exportBtn");
+            }
           }
-        }
+        });
 
-        (<HTMLButtonElement>$event.target).innerHTML = "Séléctionner";        
+        (<HTMLButtonElement>$event.target).innerHTML = "Sélectionner";        
       }
     }
 
@@ -169,9 +168,9 @@ export class ReceipeListPage implements OnInit {
           var blob = new Blob([buffer], { type: 'application/pdf' });
    
           // Save the PDF to the data Directory of our App
-          this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+          this.file.writeFile(this.file.dataDirectory, 'EasyCookListe.pdf', blob, { replace: true }).then(fileEntry => {
             // Open the PDf with the correct OS tools
-            this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
+            this.fileOpener.open(this.file.dataDirectory + 'EasyCookListe.pdf', 'application/pdf');
           })
         });
       } else {

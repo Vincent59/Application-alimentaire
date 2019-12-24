@@ -40,7 +40,11 @@ export class ItemPage implements OnInit {
       this.db.deleteIngredient(this.item.id).then(async () => {
         let toast = await this.toast.create({
           message: 'Ingrédient supprimé',
-          duration: 3000
+          duration: 3000,
+          color: "success",
+          showCloseButton: true,
+          closeButtonText: "Fermer",
+          animated: true
         });
         toast.present();
         this.router.navigateByUrl('/items-list');
@@ -48,7 +52,11 @@ export class ItemPage implements OnInit {
     } else {
       let toast = await this.toast.create({
         message: 'Cet ingrédient ne peut pas être supprimé car présent dans au moins une recette',
-        duration: 5000
+        duration: 5000,
+        color: "danger",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
     }

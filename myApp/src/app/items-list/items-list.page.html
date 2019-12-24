@@ -15,7 +15,7 @@
 <ion-content>
 
     <div [ngSwitch]="selectedView">
-        <div *ngSwitchCase="'items-list'">
+        <div *ngSwitchCase="'items-list'" class="items-list">
           <ion-item lines="none" *ngFor="let ingredient of ingredients" class="ingredientList" (click) = "goToItemPage(ingredient.id)">
               <div class="itemBloc">
                   <div class="itemInfo">
@@ -29,14 +29,16 @@
         <div *ngSwitchCase="'add-item'">
             <form [formGroup]="itemForm" (ngSubmit)="addIngredient()">
               <ion-item>
-                <ion-input  formControlName="nom" placeholder="Nom de l'ingrédient"></ion-input>
+                <ion-input  formControlName="nom" placeholder="Nom de l'ingrédient" autocapitalize="sentences"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-select  formControlName="um" placeholder="Unité de l'ingrédient">
                   <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
                 </ion-select>
               </ion-item>
-              <ion-button expand="block" type="submit" [disabled]="!itemForm.valid">Ajouter l'ingrédient</ion-button>
+              <ion-item class="addBloc" lines="none">
+                  <ion-button class="btnSave" expand="block" type="submit" [disabled]="!itemForm.valid">Ajouter l'ingrédient</ion-button>
+              </ion-item>
             </form>
           </div>
         </div>

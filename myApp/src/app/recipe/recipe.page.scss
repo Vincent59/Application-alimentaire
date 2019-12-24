@@ -4,6 +4,10 @@ ion-content {
     -ms-user-select: text;
     user-select: text;
 
+    .receipeBloc{
+        width: 100%;
+    }
+
     .receipeInfo {
 
         .receipeName {
@@ -28,13 +32,27 @@ ion-content {
             color: #7e75c1;
         }
 
+        .ing {
+            font-family: serif;
+
+            .ingName{
+                font-style: oblique;
+            }
+        }
+
         ul {
-            display: inline-flex;
+            width: 100%;
+            text-align: center;
             list-style: none;
+            padding-left: 0px;
             margin-bottom: 40px;
 
+            li {
+                display: inline-flex;
+            }
+
             li:first-child {
-                margin: 0px 80px 0 auto;
+                margin: 0px 20% 0 auto;
                 background: rgb(16, 57, 134);
                 padding: 10px 40px;
                 border-radius: 100px;

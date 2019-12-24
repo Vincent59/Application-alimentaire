@@ -56,7 +56,11 @@ export class UpdateItemPage implements OnInit {
       this.itemForm.reset();
       let toast = await this.toast.create({
         message: 'Ingrédient mis à jour',
-        duration: 3000
+        duration: 3000,
+        color: "success",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
       this.router.navigateByUrl(`/items/${this.initIngredient.id}`);

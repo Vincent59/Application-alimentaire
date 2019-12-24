@@ -2,11 +2,10 @@
   <ion-toolbar>
     <ion-title>Rechercher</ion-title>
   </ion-toolbar>
+  <ion-searchbar animated placeholder="Ex: Burger" type="text" (ionInput)="getRecettes($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content>
-    <ion-searchbar animated placeholder="Ex: Burger" type="text" (ionInput)="getRecettes($event)"></ion-searchbar>
-
     <ion-list style="padding: 0; list-style: none;" >
       <ion-item *ngFor="let recette of recettesToShow" (click)="goToRecipePage(recette.id)">{{recette.nom}}</ion-item>
     </ion-list>

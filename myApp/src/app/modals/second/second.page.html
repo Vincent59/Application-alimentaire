@@ -12,7 +12,7 @@
 <ion-content padding style="text-align: center;">
   <ion-text>
     <ul class="ingredientList">
-      <li *ngFor="let ingredient of ingredients" (click)="chooseIngredient()" [attr.data-unite]="ingredient.unite" [attr.data-id]="ingredient.id" [ngClass]="{'active': isActive(ingredient.id)}">{{ ingredient.nom }}</li>
+      <li *ngFor="let ingredient of ingredients" (click)="chooseIngredient()" [attr.data-unite]="ingredient.unite" [attr.data-id]="ingredient.id" [ngClass]="{'active': isActive(ingredient.id)}">{{ ingredient.nom }} ({{ingredient.unite}})</li>
     </ul>
   </ion-text>
 </ion-content>

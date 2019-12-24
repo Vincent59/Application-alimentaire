@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-second',
@@ -10,8 +10,8 @@ export class SecondPage implements OnInit {
   @Input() ingredientsToShow;
   @Input() ingredients;
 
-  constructor(private modalController: ModalController) { }
-
+  constructor(private modalController: ModalController, private platform: Platform) { }
+  backButtonSubscription;
   public choseIngredients = [];
   public isItemActive = [];
 
@@ -30,11 +30,22 @@ export class SecondPage implements OnInit {
     }
   }
 
+  
+  ionViewDidEnter(){
+    this.backButtonSubscription = this.platform.backButton.subscribe(()=>{
+        this.closeModalWithoutUpdate();
+    });
+  }
+
+  ionViewWillLeave(){
+    this.backButtonSubscription.unsubscribe();
+  }
+
   /**
    * Close the modal without sending data
    */
   closeModalWithoutUpdate() {
-    this.modalController.dismiss(this.choseIngredients);
+    this.modalController.dismiss(this.ingredientsToShow);
   }
 
   /**

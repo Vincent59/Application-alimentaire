@@ -31,7 +31,7 @@
     background-image: url("/assets/background3.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0 -75px;
+    background-position: 0 -58px;
     height: 200px;
 
     .title-md {
@@ -51,7 +51,6 @@
     margin-bottom: 15px;
 
     .receipePic {
-        height: 200px;
         overflow: hidden;
     }
 
@@ -84,7 +83,6 @@
 
             .exportIcon {
                 margin-left: 0;
-                // margin-right: 210px;
             }
     
             li {
@@ -120,6 +118,11 @@ ion-item {
             color: #ffffff;
         }
     }
+}
+
+.receipeSelect {
+    --background: #ff627e;
+    color: #ffffff;
 }
 
 ion-fab {

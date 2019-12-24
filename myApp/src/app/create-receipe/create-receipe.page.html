@@ -7,7 +7,7 @@
 <ion-content>
   <form [formGroup]="recetteForm" (ngSubmit)="addRecette()">
           <ion-item>
-            <ion-input placeholder="Nom de recette" formControlName="nom"></ion-input>
+            <ion-input placeholder="Nom de recette" formControlName="nom" autocapitalize="sentences"></ion-input>
           </ion-item>
 
           <ion-item>
@@ -15,7 +15,7 @@
           </ion-item>
           <ion-item>
 
-            <ion-input placeholder="Source" formControlName="source"></ion-input>
+            <ion-input placeholder="Source" formControlName="source" autocapitalize="sentences"></ion-input>
           </ion-item>
 
           <ion-item>

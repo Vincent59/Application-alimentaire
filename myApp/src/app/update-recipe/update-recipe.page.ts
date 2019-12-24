@@ -76,13 +76,10 @@ export class UpdateRecipePage implements OnInit {
       }
     });
     modal.onWillDismiss().then(dataReturned => {
+      this.ingredientToShow = [];
       if (dataReturned.data.length > 0) {
-        this.ingredientToShow = [];
-
         dataReturned.data.forEach(element => 
-
         this.ingredientToShow.push(element)
-
         );
       }
     });
@@ -132,7 +129,11 @@ export class UpdateRecipePage implements OnInit {
     .then(async _ => {
       let toast = await this.toast.create({
         message: 'Recette mise à jour',
-        duration: 3000
+        duration: 3000,
+        color: "success",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
       this.router.navigateByUrl(`/recipes/${this.initRecette.id}`);

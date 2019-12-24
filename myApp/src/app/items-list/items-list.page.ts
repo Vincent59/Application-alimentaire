@@ -50,7 +50,11 @@ export class ItemsListPage implements OnInit {
       this.itemForm.reset();
       let toast = await this.toast.create({
         message: 'Ingrédient ajouté',
-        duration: 3000
+        duration: 3000,
+        color: "success",
+        showCloseButton: true,
+        closeButtonText: "Fermer",
+        animated: true
       });
       toast.present();
       this.selectedView = 'items-list';

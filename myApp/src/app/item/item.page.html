@@ -15,7 +15,9 @@
                   <p class="recettes"> Présent dans les recettes suivantes : </p>
                   <ion-list>
                       <ion-item lines="none" *ngFor="let recette of item.recettes" (click) = "goToRecipePage(recette.id)">
+                        <ion-button class="recetteButton">
                           <p class="recette">{{recette.nom}}</p>
+                        </ion-button>
                       </ion-item>
                   </ion-list>
               </div>
@@ -24,10 +26,10 @@
               </div>
               <ul>
                   <li>
-                        <ion-icon name="trash" (click)="deleteIngredient()"></ion-icon>
+                      <ion-icon name="create" (click)="goToUpdatePage()"></ion-icon>
                 </li>
                   <li>
-                      <ion-icon name="create" (click)="goToUpdatePage()"></ion-icon>
+                      <ion-icon name="trash" (click)="deleteIngredient()"></ion-icon>
                   </li>
                 </ul>
             </div>

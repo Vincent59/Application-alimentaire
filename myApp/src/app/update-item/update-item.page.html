@@ -8,7 +8,7 @@
     <form [formGroup]="itemForm" (ngSubmit)="updateIngredient()">
       <ion-item>
         <ion-label>Nom de l'ingrédient :</ion-label>
-          <ion-input formControlName="nom" placeholder="Nom"></ion-input>
+          <ion-input formControlName="nom" placeholder="Nom" autocapitalize="sentences"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Unité de l'ingrédient :</ion-label>
@@ -16,7 +16,9 @@
             <ion-select-option *ngFor="let um of ums" [value]="um.id">{{ um.nom }}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button expand="block" type="submit" [disabled]="!itemForm.valid">Enregistrer les modifications</ion-button>
+        <ion-item class="addBloc" lines="none">
+            <ion-button class="btnSave" expand="block" type="submit" [disabled]="!itemForm.valid">Enregistrer les modifications</ion-button>
+        </ion-item>
       </form>
 </ion-content>
 

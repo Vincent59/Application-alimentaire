@@ -1,0 +1,22 @@
+ion-label {
+    -ms-flex: initial;
+    flex: initial;
+}
+
+.addBloc {
+    text-align: center;
+
+    .button {
+        margin: 20px auto 5px auto;
+        font-size: 85%;
+        font-weight: bold;
+    }
+
+    .btnSave {
+        margin: 5% auto auto auto;
+        --background: #3cd67c;
+        color: #ffffff;
+        width: 80%;
+        height: 40px;
+    }
+}
