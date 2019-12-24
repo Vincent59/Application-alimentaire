@@ -20,7 +20,7 @@
               <div class="itemBloc">
                   <div class="itemInfo">
                     <p class="itemName">{{ingredient.nom}} ({{ingredient.unite}})</p>
-                    <p class="itemNb">Utilisé dans {{ingredient.nbRecettes}} recette(s)</p>
+                    <p class="itemNb">Utilisé dans {{ingredient.nbRecettes}} recette{{ingredient.nbRecettes > 1 ? 's' : ''}}</p>
                   </div>
               </div>
           </ion-item>

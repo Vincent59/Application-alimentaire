@@ -26,7 +26,7 @@
                 <ion-button class="btnAdd" (click)="openModalWithData()">Ajouter des ingrédients</ion-button>
             </ion-item>
     <ion-item class="addBloc" lines="none">
-      <ion-label>{{ ingredientToShow?.length }} ingrédient(s) ajouté(s)</ion-label>
+      <ion-label>{{ ingredientToShow?.length }} ingrédient{{ingredientToShow?.length > 1 ? 's' : ''}} ajouté{{ingredientToShow?.length > 1 ? 's' : ''}}</ion-label>
     </ion-item>
 
     <ion-text>

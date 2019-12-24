@@ -10,10 +10,10 @@
         <div class="receipeBloc">
             <div class="receipeInfo">
               <p class="receipeName">{{recette.nom}}</p>
-              <p class="receipePeople">Pour {{recette.nbPers}} personne(s)</p>
+              <p class="receipePeople">Pour {{recette.nbPers}} personne{{recette.nbPers > 1 ? 's' : ''}}</p>
               <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
               <div *ngIf="recette.ingqtes.length > 0">
-                <p class="ings"> Ingrédients : </p>
+                <p class="ings"> Ingrédient{{recette.ingqtes.length > 1 ? 's' : ''}} : </p>
                 <ion-list>
                     <ion-item lines="none" *ngFor="let ing of recette.ingqtes" >
                         <p class="ing"><span class="ingName">{{ing.nom}}</span> : {{ing.qte}} {{ing.unite}}<span *ngIf="ing.unite !== 'CàC' && ing.unite !== 'CàS' && ing.qte > 1">s</span></p>

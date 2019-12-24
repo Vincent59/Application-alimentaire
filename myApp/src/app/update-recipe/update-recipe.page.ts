@@ -58,7 +58,7 @@ export class UpdateRecipePage implements OnInit {
     this.db.getDatabaseState().subscribe(rdy => {
       if (rdy) {
         this.db.getIngredients().subscribe(ingredients => {
-          this.ingredients = ingredients;
+          this.ingredients = ingredients.sort((a, b) => a.nom.localeCompare(b.nom));
         })
       }
     });

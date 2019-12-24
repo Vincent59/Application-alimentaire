@@ -97,7 +97,7 @@ export class DatabaseService {
    * Fill the database based on a .sql file in assets/database (seed.sql)
    */
   seedDatabase() {
-    this.http.get('assets/database/test.sql', { responseType: 'text'})
+    this.http.get('assets/database/seed.sql', { responseType: 'text'})
     .subscribe(sql => {
       this.sqlitePorter.importSqlToDb(this.database, sql)
         .then(_ => {
@@ -290,7 +290,7 @@ export class DatabaseService {
 
   /**
    * Get all the items 
-   * @returns Observable<Um[]>
+   * @returns Observable<Ingredient[]>
    */
   getIngredients(): Observable<Ingredient[]> {
     return this.ingredients.asObservable();

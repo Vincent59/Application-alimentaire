@@ -13,7 +13,7 @@
 
           <ion-item>
               <ion-label>Nombre de personnes :</ion-label>
-            <ion-input formControlName="nbPers" placeholder="Nombre de personnes"></ion-input>
+            <ion-input formControlName="nbPers" placeholder="Nombre de personnes" type="number"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Source :</ion-label>
@@ -29,7 +29,7 @@
                 <ion-button class="btnAdd" (click)="openModalWithData()">Modifier les ingrédients</ion-button>
             </ion-item>
     <ion-item class="addBloc" lines="none">
-      <ion-label>{{ ingredientToShow?.length }} ingrédient(s)</ion-label>
+      <ion-label>{{ ingredientToShow?.length }} ingrédient{{ ingredientToShow?.length > 1 ? 's' : '' }}</ion-label>
     </ion-item>
 
     <ion-text>

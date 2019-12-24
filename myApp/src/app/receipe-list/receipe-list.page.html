@@ -12,8 +12,8 @@
         </div>
         <div class="receipeInfo">
           <p class="receipeName">{{recette.nom}}</p>
-          <p class="receipePeople">{{recette.nbPers}} personne(s)</p>
-          <p class="receipeIngredient">{{recette.nbIngr}} ingrédient(s)</p>
+          <p class="receipePeople">{{recette.nbPers}} personne{{recette.nbPers > 1 ? 's' : ''}}</p>
+          <p class="receipeIngredient">{{recette.nbIngr}} ingrédient{{recette.nbIngr > 1 ? 's' : ''}}</p>
           <p class="receipeSource">Source : {{recette.source}}, {{recette.page}}</p>
         </div>
     </div>
